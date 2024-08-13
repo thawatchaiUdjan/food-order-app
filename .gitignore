@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .env*
+src/assets/foods/
 
 # Editor directories and files
 .vscode/*

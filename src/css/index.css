@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
+    overflow: hidden;
+    scrollbar-gutter: auto; /* Only reserves space if a scrollbar is present */
+}

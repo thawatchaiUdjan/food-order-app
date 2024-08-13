@@ -11,6 +11,15 @@ This repository hosts a web application with a React and Vite frontend, and a No
 - **Database**: MySQL on Microsoft Azure.
 - **Image Storage**: Cloudinary.
 
+## User Registration and Access
+
+- **Registration**: Before using the application, you need to register an account. The registration process allows you to create a new user profile with your preferred credentials.
+- **Admin Access**: For administrative purposes, you can log in with the following credentials:
+  - **Username**: `admin`
+  - **Password**: `admin`
+  
+  Note that these credentials provide administrative access to manage application settings and user data. It is recommended to change the default admin credentials after your first login to ensure security.
+
 ## Service Availability
 
 If you encounter any issues accessing the application, it could be due to one of the following reasons:
@@ -19,3 +28,7 @@ If you encounter any issues accessing the application, it could be due to one of
 - **Image Storage Issue**: Cloudinary might be experiencing issues, or image links could be broken.
 
 ## [Click to open link](https://food-order-app-kappa-six.vercel.app/)
+
+---
+
+Feel free to customize this README to fit any additional details or instructions specific to your application.

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import OrderContext from '../contexts/OrderContext'
+import { getFormattedDateTime } from '../../utils'
 
 export default function OrderCard({ order }) {
     const statuses = ['Prepare', 'Cooking', 'Delivery', 'Ready']
@@ -30,7 +31,7 @@ export default function OrderCard({ order }) {
                     <div className='text-black text-opacity-50'>
                         <div>subtotal: ${order.subtotal_price}</div>
                         <div>delivery: ${order.delivery_price}</div>
-                        <div>create at: {new Intl.DateTimeFormat('en-US', '').format(new Date(order.create_at))}</div>
+                        <div>create at: {getFormattedDateTime(order.created_at)}</div>
                     </div>
                     <hr className='my-4' />
                     <div className='font-semibold mb-2'>Order Status</div>

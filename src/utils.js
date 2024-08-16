@@ -32,3 +32,8 @@ export function logFormData(formData) {
 export async function waitForSecond(sec = 500) {
   await new Promise(resolve => setTimeout(resolve, sec))
 }
+
+export function getFormattedDateTime(date) {
+  const dateObject = date instanceof Date ? date : new Date(date)
+  return new Intl.DateTimeFormat('en-US', '').format(dateObject)
+}

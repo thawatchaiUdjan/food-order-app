@@ -34,6 +34,15 @@ export async function waitForSecond(sec = 500) {
 }
 
 export function getFormattedDateTime(date) {
+  const options = {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }
   const dateObject = date instanceof Date ? date : new Date(date)
-  return new Intl.DateTimeFormat('en-US', '').format(dateObject)
+  return new Intl.DateTimeFormat('en-GB', options).format(dateObject)
 }

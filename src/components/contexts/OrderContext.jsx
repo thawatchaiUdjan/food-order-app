@@ -1,7 +1,7 @@
 import { logFormData, waitForSecond } from '../../utils'
 import React, { createContext, useContext, useState } from 'react'
 import { sendDeleteRequest, sendGetRequest, sendPostRequest, sendPutRequest } from '../../api-service'
-import { ORDER_ALL, ORDER_GET } from '../../api-path'
+import { ORDER_ALL, ORDER_GET, ORDER_STATUS } from '../../api-path'
 import LoadingContext from './LoadingContext'
 import AlertMessageContext from './AlertMessageContext'
 
@@ -10,6 +10,7 @@ const OrderContext = createContext()
 export function OrderProvider({ children }) {
     const [foodOrder, SetFoodOrder] = useState(null)
     const [allFoodOrder, SetAllFoodOrder] = useState([])
+    const [orderStatus, SetOrderStatus] = useState([])
     const { showLoading, hideLoading } = useContext(LoadingContext)
     const { showAlert } = useContext(AlertMessageContext)
 
@@ -26,11 +27,14 @@ export function OrderProvider({ children }) {
     async function getAllOrder() {
         try {
             showLoading()
-            const res = await sendGetRequest(ORDER_ALL)
-            SetAllFoodOrder(res.data)
-            hideLoading()
+            const allOrder = await sendGetRequest(ORDER_ALL)
+            const orderStatus = await sendGetRequest(ORDER_STATUS)
+            SetAllFoodOrder(allOrder.data)
+            SetOrderStatus(orderStatus.data)            
         } catch (err) {
             console.log(err.response.data.message)
+        } finally {
+            hideLoading()
         }
     }
 
@@ -83,7 +87,7 @@ export function OrderProvider({ children }) {
     }
 
     return (
-        <OrderContext.Provider value={{ foodOrder, allFoodOrder, getAllOrder, getOrder, createOrder, cancelOrder, updateStatusOrder }}>
+        <OrderContext.Provider value={{ foodOrder, allFoodOrder, orderStatus, getAllOrder, getOrder, createOrder, cancelOrder, updateStatusOrder }}>
             {children}
         </OrderContext.Provider>
     )

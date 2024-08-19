@@ -10,3 +10,4 @@ export const CATEGORY_GET = '/category'
 
 export const ORDER_GET = '/orders'
 export const ORDER_ALL = '/orders/all-order'
+export const ORDER_STATUS = '/order-status'

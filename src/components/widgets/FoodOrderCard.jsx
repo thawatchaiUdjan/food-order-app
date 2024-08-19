@@ -9,19 +9,19 @@ export default function FoodOrderCard() {
     const statuses = [
         {
             text: 'Prepare',
-            icon: <BellAlertIcon className="size-6 inline mt-3 text-success animate-bounce" />,
+            icon: <BellAlertIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
         },
         {
             text: 'Cooking',
-            icon: <BeakerIcon className="size-6 inline mt-3 text-success animate-bounce" />,
+            icon: <BeakerIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
         },
         {
             text: 'Delivery',
-            icon: <TruckIcon className="size-6 inline mt-3 text-success animate-bounce" />,
+            icon: <TruckIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
         },
         {
             text: 'Ready',
-            icon: <ClockIcon className="size-6 inline mt-3 text-success animate-bounce" />,
+            icon: <ClockIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
         },
     ]
 
@@ -50,14 +50,14 @@ export default function FoodOrderCard() {
         <>
             <div className="mx-auto w-3/4 mt-24 collapse collapse-arrow bg-white shadow-lg border text-primary">
                 <input type="checkbox" />
-                <div className="collapse-title text-center">
-                    <ul className="steps w-full text-gray-600 font-semibold">
+                <div className="collapse-title mx-auto">
+                    <ul className="steps steps-vertical md:steps-horizontal w-full text-gray-600 font-semibold">
                         {
                             statuses.map((status, index) => (
                                 <FoodStatusItem
                                     key={index}
                                     index={index}
-                                    status={foodOrder.order.order_status}
+                                    status={foodOrder.order.status_value}
                                     text={status.text}
                                     icon={status.icon}>
                                 </FoodStatusItem>
@@ -66,7 +66,7 @@ export default function FoodOrderCard() {
                     </ul>
                 </div>
                 <div className="collapse-content pl-7 pt-3">
-                    <div className='flex justify-between text-lg font-bold'>
+                    <div className='sm:flex justify-between text-lg font-bold'>
                         <div>Your Food</div>
                         <div>
                             <span className='font-normal text-sm text-black text-opacity-50 mr-3'>
@@ -96,7 +96,7 @@ function FoodStatusItem({ index, status, icon, text }) {
     if (isCurrent) {
         statusIcon = icon
     } else if (isSuccess) {
-        statusIcon = <CheckIcon className="size-6 inline mt-3 text-success" />
+        statusIcon = <CheckIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success" />
     }
 
     return (

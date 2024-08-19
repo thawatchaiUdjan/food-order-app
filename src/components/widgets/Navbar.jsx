@@ -80,9 +80,9 @@ function LinkMenuButton({ text, link }) {
 }
 
 function CreateFoodButton({ isAdmin, onClick }) {
-  return isAdmin && (<button onClick={onClick} className="btn btn-ghost font-semibold text-primary uppercase mx-3">New Food</button>)
+  return isAdmin && (<button onClick={onClick} className="btn btn-ghost text-lg font-normal text-primary uppercase ml-3">New Food</button>)
 }
 
 function OrdersButton({ isAdmin }) {
-  return isAdmin && (<Link to={'/orders'}><button className="btn btn-ghost font-semibold text-primary uppercase">Orders</button></Link>)
+  return isAdmin && (<Link to={'/orders'}><button className="btn btn-ghost text-lg font-normal text-primary uppercase">Orders</button></Link>)
 }

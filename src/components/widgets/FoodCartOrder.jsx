@@ -54,8 +54,8 @@ export default function FoodCartOrder() {
     }, [foodCarts])
 
     return (
-        <div className="flex justify-center mx-auto mt-10 mb-20 pt-20">
-            <div className="flex flex-col">
+        <div className="flex justify-center mx-auto w-2/3 mt-10 mb-20 pt-20">
+            <div className="flex flex-col w-full">
                 <div className="text-center text-3xl text-primary uppercase">
                     Your Food
                 </div>

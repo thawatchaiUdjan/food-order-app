@@ -4,15 +4,16 @@ import FoodDetailModalContext from '../contexts/FoodDetailModalContext'
 import FoodCartContext from '../contexts/FoodCartContext'
 import OrderContext from '../contexts/OrderContext'
 import AuthContext from '../contexts/AuthContext'
+import FoodOptionModalContext from '../contexts/FoodOptionModalContext'
 
 export default function FoodCard({ food }) {
   const { open } = useContext(FoodDetailModalContext)
-  const { addFoodCart } = useContext(FoodCartContext)
   const { foodOrder } = useContext(OrderContext)
   const { isAdmin } = useContext(AuthContext)
+  const { openFoodOption } = useContext(FoodOptionModalContext)
 
   function onClickBuyButton() {
-    addFoodCart(food)
+    openFoodOption(food)
   }
 
   function onClickDetailButton() {

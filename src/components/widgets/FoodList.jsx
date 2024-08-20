@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import FoodContext from '../contexts/FoodContext'
 import FoodCard from './FoodCard'
 import FoodCategoryContext from '../contexts/FoodCategoryContext'
+import { FoodOptionModalProvider } from '../contexts/FoodOptionModalContext'
 
 export default function FoodList() {
     const { selectCategory } = useContext(FoodCategoryContext)
@@ -27,12 +28,14 @@ export default function FoodList() {
                 </button>
             </div>
             <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-                {
-                    foods.map((food, index) => (
-                        (food.category_id === selectCategory || selectCategory === 0) && searchFoods.some(v => v === food) &&
-                        (<FoodCard key={index} food={food} />)
-                    ))
-                }
+                <FoodOptionModalProvider>
+                    {
+                        foods.map((food, index) => (
+                            (food.category_id === selectCategory || selectCategory === 0) && searchFoods.some(v => v === food) &&
+                            (<FoodCard key={index} food={food} />)
+                        ))
+                    }
+                </FoodOptionModalProvider>
             </div>
         </div>
 

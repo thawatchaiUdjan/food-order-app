@@ -5,8 +5,8 @@ const FoodCartContext = createContext()
 export function FoodCartProvider({ children }) {
     const [foodCarts, setFoodCart] = useState([])
 
-    function addFoodCart(food) {
-        setFoodCart(foodCarts => [...foodCarts, { food: food, amount: 1, total: food.food_price }])
+    function addFoodCart({food, foodOptions}) {
+        setFoodCart(foodCarts => [...foodCarts, { food: food, amount: 1, total: food.food_price, option: foodOptions }])
     }
 
     function removeFoodCart(index) {

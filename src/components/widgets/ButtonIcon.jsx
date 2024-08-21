@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function ButtonIcon({ text, name, icon, type, buttonType = 'primary', isLoading, onClick }) {
+export default function ButtonIcon({ text, name, icon, type, buttonType = 'primary', isLoading, disabled, onClick }) {
     const buttonTypes = {
         primary: 'btn-primary',
         error: 'btn-error',
@@ -12,7 +12,7 @@ export default function ButtonIcon({ text, name, icon, type, buttonType = 'prima
             name={name}
             type={type}
             onClick={onClick}
-            disabled={isLoading}>
+            disabled={isLoading ? isLoading : disabled}>
             {isLoading ? (<span className="loading loading-spinner loading-sm"></span>) : (icon)}
             {text}
         </button>

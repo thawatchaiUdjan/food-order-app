@@ -1,19 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import { ArrowRightIcon, ChevronDownIcon } from '@heroicons/react/24/solid'
 import FoodCartContext from '../contexts/FoodCartContext'
 import FoodCartList from '../widgets/FoodCartList'
 import ConfirmModalContext from '../contexts/ConfirmModalContext'
 import OrderContext from '../contexts/OrderContext'
 import ButtonIcon from './ButtonIcon'
 import { useNavigate } from 'react-router-dom'
+import DeliveryOptionCard from './DeliveryOptionCard'
+import { MapPinIcon } from '@heroicons/react/24/solid'
+import MapLocationModalContext, { MapLocationModalProvider } from '../contexts/MapLocationContext'
 
 export default function FoodCartOrder() {
-    const { foodCarts, clearFoodCart } = useContext(FoodCartContext)
+    const { foodCarts, delivery, location, clearFoodCart } = useContext(FoodCartContext)
     const { open } = useContext(ConfirmModalContext)
     const { createOrder } = useContext(OrderContext)
     const [isLoading, setIsLoading] = useState(false)
     const [subtotalCost, setSubtotal] = useState(0)
-    const [deliveryCost, setDeliveryCost] = useState(0)
     const [totalCost, setTotalCost] = useState(0)
     const navigate = useNavigate()
 
@@ -35,8 +37,9 @@ export default function FoodCartOrder() {
         await createOrder({
             order: {
                 subtotal_price: subtotalCost,
-                delivery_price: deliveryCost,
+                delivery_price: delivery.delivery_cost,
                 total_price: totalCost,
+                order_address: location.address,
             },
             foods: foodCarts
         })
@@ -44,33 +47,43 @@ export default function FoodCartOrder() {
 
     function calculateSubtotal() {
         const subtotal = foodCarts.reduce((total, foodCart) => total + parseFloat(foodCart.total), 0).toFixed(2)
-        const total = parseFloat(subtotal + deliveryCost).toFixed(2)
+        const total = parseFloat(parseFloat(subtotal) + delivery.delivery_cost).toFixed(2)
         setSubtotal(subtotal)
         setTotalCost(total)
     }
 
     useEffect(() => {
         calculateSubtotal()
-    }, [foodCarts])
+    }, [foodCarts, delivery])
 
     return (
         <div className="flex justify-center mx-auto w-2/3 mt-10 mb-20 pt-20">
             <div className="flex flex-col w-full">
-                <div className="text-center text-3xl text-primary uppercase">
-                    Your Food
-                </div>
-                <hr className="border-t border-gray-300 w-full my-6 mx-auto" />
+                <div className="text-center text-3xl text-primary uppercase">Your Cart</div>
+
+
+                <HeaderText text={'Address'} />
+                <MapLocationModalProvider>
+                    <DeliveryAddress />
+                </MapLocationModalProvider>
+
+                <LineDivider />
+                <HeaderText text={'Delivery'} />
+                <DeliveryList />
+                <LineDivider />
+                <HeaderText text={'Food'} />
                 <FoodCartList />
-                <hr className="border-t border-gray-300 w-full my-6 mx-auto" />
+                <LineDivider />
                 <FoodCartSummarize
                     subtotalCost={subtotalCost}
-                    deliveryCost={deliveryCost}
+                    deliveryCost={delivery.delivery_cost}
                     totalCost={totalCost} >
                 </FoodCartSummarize>
                 <ButtonIcon
                     text={'Order'}
                     icon={<ArrowRightIcon className='size-5' />}
                     isLoading={isLoading}
+                    disabled={!(foodCarts && delivery && location)}
                     onClick={onClickOrderButton}
                 />
             </div>
@@ -78,9 +91,47 @@ export default function FoodCartOrder() {
     )
 }
 
+function DeliveryAddress() {
+    const { openMapLocation } = useContext(MapLocationModalContext)
+    const { location, setLocation } = useContext(FoodCartContext)
+
+    function onSelectLocation(location) {
+        setLocation(location)
+    }
+
+    return (
+        <div
+            className='w-full h-auto p-3 btn btn-outline btn-primary font-normal flex flex-row items-center justify-start'
+            onClick={() => openMapLocation(onSelectLocation)}>
+            <MapPinIcon className='size-6 text-error' />
+            <div className='text-sm flex-1 lg:flex-none'>{location ? location.address : 'Choose your location'}</div>
+            <div className='lg:flex-1'><ChevronDownIcon className='size-6 ml-auto' /></div>
+        </div>
+    )
+}
+
+function DeliveryList() {
+    const { deliveryOptions, getDeliveryOptions, clearDeliveryOption } = useContext(FoodCartContext)
+
+    useEffect(() => {
+        clearDeliveryOption()
+        getDeliveryOptions()
+    }, [])
+
+    return (
+        <div className="flex flex-col gap-4">
+            {
+                deliveryOptions.map((option, index) => (
+                    <DeliveryOptionCard key={index} option={option} />
+                ))
+            }
+        </div>
+    )
+}
+
 function FoodCartSummarize({ subtotalCost, deliveryCost, totalCost }) {
     return (
-        <>
+        <div className='mt-3'>
             <div className='flex justify-between text-lg'>
                 <div className='text-gray-500 text-opacity-70'>Subtotal</div>
                 <div className='text-primary text-opacity-70'>${subtotalCost}</div>
@@ -93,6 +144,14 @@ function FoodCartSummarize({ subtotalCost, deliveryCost, totalCost }) {
                 <div className='font-semibold'>Total</div>
                 <div className='font-semibold text-primary'>${totalCost}</div>
             </div>
-        </>
+        </div>
     )
+}
+
+function HeaderText({ text }) {
+    return (<div className='text-2xl text-primary my-2'>{text}</div>)
+}
+
+function LineDivider() {
+    return (<hr className="border-t border-gray-300 w-full my-6 mb-2 mx-auto" />)
 }

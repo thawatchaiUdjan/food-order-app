@@ -13,10 +13,12 @@
     "@heroicons/react": "^2.1.5",
     "animate.css": "^4.1.1",
     "axios": "^1.7.3",
+    "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.2",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.26.0",
     "react-scroll": "^1.9.0"
   },

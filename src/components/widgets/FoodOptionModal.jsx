@@ -16,7 +16,6 @@ export default function FoodOptionModal({ food, isShow, close }) {
         }
         addFoodCart({ food, foodOptions })
         close()
-        console.log(food)
     }
 
     function getStringOptions(data) {

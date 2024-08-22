@@ -87,7 +87,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                         <span className='mr-2'>Note</span>
                         <span className='text-xs text-black text-opacity-35'>*optional</span>
                     </div>
-                    <InputTextArea name={'option-note'} register={register} placeholder={'e.g. Dont include plastic spoon'} />
+                    <InputTextArea name={'option-note'} register={register} placeholder={'e.g. dont include plastic spoon'} />
 
                     {/* submit button */}
                     <div className="modal-action">

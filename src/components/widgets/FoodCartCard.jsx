@@ -24,7 +24,7 @@ export default function FoodCartCard({ foodCartIndex, foodCart }) {
             {/* food & options info */}
             <div className='grow flex flex-col sm:ml-6 h-full items-center justify-center sm:items-start overflow-auto'>
                 <div className='font-semibold text-xl text-primary text-opacity-80'>{foodCart.food.food_name}</div>
-                <div className=''>
+                <div className='text-center sm:text-left'>
                     {
                         foodCart.option.option_string.map((option, index) => (
                             <span key={index} className='text-sm text-gray-500 mr-1'>

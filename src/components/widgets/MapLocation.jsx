@@ -3,18 +3,20 @@ import React, { useContext, useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import FoodCartContext from '../contexts/FoodCartContext'
+import AuthContext from '../contexts/AuthContext'
 
 export default function MapLocation({ isShow, close, onSelect }) {
     const defaultLocation = [13.7563, 100.5018] // center of thailand
     const { location } = useContext(FoodCartContext)
+    const { user } = useContext(AuthContext)
     const [currentLocation, setCurrentLocation] = useState(location ? location.latlng : defaultLocation)
     const [isLoading, setIsLoading] = useState(true)
 
     async function setDefaultLocation() {
         let currPosition = currentLocation
         if (currPosition == defaultLocation) {
-            currPosition = false ? [13.84341360315534, 100.75424194335938] : await getCurrentPosition() // change 'false' to user.location_latlng
-        } 
+            currPosition = user.user && user.user.location_latlng ? [13.84341360315534, 100.75424194335938] : await getCurrentPosition() // change 'false' to user.location_latlng
+        }
         const location = currPosition || defaultLocation
         setCurrentLocation(location)
         setIsLoading(false)

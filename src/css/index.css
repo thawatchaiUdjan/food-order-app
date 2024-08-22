@@ -4,5 +4,23 @@
 
 :root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
     overflow: hidden;
-    scrollbar-gutter: auto; /* Only reserves space if a scrollbar is present */
+    scrollbar-gutter: auto;
+    /* Only reserves space if a scrollbar is present */
+}
+
+/* Navbar.css */
+.collapse-menu {
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(-100%);
+    pointer-events: none;
+}
+
+.collapse-menu.open {
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.collapse-menu.closed {
+    transform: translateY(-100%);
+    pointer-events: none;
 }

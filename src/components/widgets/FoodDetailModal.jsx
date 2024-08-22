@@ -127,7 +127,7 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
     </div>
 
   return (
-    <dialog id='food-detail-modal' className={`${isShow ? 'modal-open' : 'modal-closed'} modal z-10 max-w-full`}>
+    <dialog id='food-detail-modal' className={`modal z-30 max-w-full ${isShow ? 'modal-open' : 'modal-closed'} `}>
       <div className="modal-box max-w-2xl">
         <button onClick={close} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         <div className="text-primary font-medium text-3xl text-center uppercase my-3">Food Detail</div>
@@ -151,7 +151,7 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
           </InputTextLabel>
 
           {/* Second Row */}
-          <div className='flex flex-row gap-5'>
+          <div className='flex flex-wrap gap-5'>
             <InputWithTails
               id={'food-price-input'}
               label={'Price'}

@@ -24,7 +24,7 @@ export default function InputSearchFood() {
     }, [foods])
 
     return (
-        <div className='mx-12 mt-6 my-4'>
+        <div className='mx-8 sm:mx-12 mt-6 my-4'>
             <label className="input input-bordered flex items-center gap-2 shadow-md">
                 <MagnifyingGlassIcon className='size-4' />
                 <input type="text" className="grow" placeholder="Search here" onChange={onChangeSearchInput} />

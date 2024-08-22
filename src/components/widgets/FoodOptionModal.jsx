@@ -48,7 +48,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                             <img
                                 src={food.food_image_url ? food.food_image_url : 'https://www.achivr.in/cdn/shop/products/no-image-available-grid_5ad88fe4-3f32-4194-b9df-8fda72817a72.jpg?v=1554983465'}
                                 alt={food.food_name}
-                                className="object-contain w-full h-full border border-gray-300 rounded-xl"
+                                className="object-cover w-full h-full border border-gray-300 rounded-xl"
                             />
                         </div>
                         <div className='flex items-baseline mt-3 mb-1 self-start'>

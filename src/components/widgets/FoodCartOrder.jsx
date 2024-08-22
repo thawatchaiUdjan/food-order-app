@@ -57,9 +57,9 @@ export default function FoodCartOrder() {
     }, [foodCarts, delivery])
 
     return (
-        <div className="flex justify-center mx-auto w-2/3 mt-10 mb-20 pt-20">
+        <div className="flex justify-center mx-auto px-8 md:px-0 md:w-2/3 mt-10 mb-20 pt-20">
             <div className="flex flex-col w-full">
-                <div className="text-center text-3xl text-primary uppercase">Your Cart</div>
+                <div className="text-center text-3xl text-primary uppercase mb-3">Your Cart</div>
 
                 {/* delivery location */}
                 <HeaderText text={'Address'} />

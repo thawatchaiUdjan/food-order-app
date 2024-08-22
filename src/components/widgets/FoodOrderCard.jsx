@@ -10,19 +10,19 @@ export default function FoodOrderCard() {
     const statuses = [
         {
             text: 'Prepare',
-            icon: <BellAlertIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
+            icon: <BellAlertIcon className="size-0 hidden md:size-6 md:inline mt-3 text-success animate-bounce" />,
         },
         {
             text: 'Cooking',
-            icon: <BeakerIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
+            icon: <BeakerIcon className="size-0 hidden md:size-6 md:inline mt-3 text-success animate-bounce" />,
         },
         {
             text: 'Delivery',
-            icon: <TruckIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
+            icon: <TruckIcon className="size-0 hidden md:size-6 md:inline mt-3 text-success animate-bounce" />,
         },
         {
             text: 'Ready',
-            icon: <ClockIcon className="size-0 hidden sm:size-6 sm:inline mt-3 text-success animate-bounce" />,
+            icon: <ClockIcon className="size-0 hidden md:size-6 md:inline mt-3 text-success animate-bounce" />,
         },
     ]
 
@@ -48,8 +48,8 @@ export default function FoodOrderCard() {
 
     return (
         foodOrder &&
-        <>
-            <div className="mx-auto w-3/4 mt-24 collapse collapse-arrow bg-white shadow-lg border text-primary">
+        <div className='md:w-3/4 mt-28 mx-auto px-7 md:px-0'>
+            <div className="collapse collapse-arrow bg-white shadow-lg border text-primary">
                 <input type="checkbox" />
                 <div className="collapse-title mx-auto">
                     <ul className="steps steps-vertical md:steps-horizontal w-full text-gray-600 font-semibold">
@@ -66,8 +66,8 @@ export default function FoodOrderCard() {
                         }
                     </ul>
                 </div>
-                <div className="collapse-content pl-7 pt-0 sm:pt-3">
-                    <div className='flex flex-col sm:flex-row items-baseline text-lg font-bold gap-1 sm:gap-3'>
+                <div className="collapse-content pl-7 pt-0 md:pt-3">
+                    <div className='flex flex-col md:flex-row items-baseline text-lg font-bold gap-1 md:gap-3'>
                         <div className='flex-1'>Your Food</div>
                         <div className='font-normal text-sm text-black text-opacity-50'>Subtotal: ${foodOrder.order.subtotal_price}</div>
                         <div className='font-normal text-sm text-black text-opacity-50'>{foodOrder.order.order_delivery_option.delivery_name}: ${foodOrder.order.order_delivery_option.delivery_cost}</div>
@@ -79,14 +79,14 @@ export default function FoodOrderCard() {
                     }
                     <hr className='my-3'></hr>
                     <div className='flex flex-row items-center gap-2'>
-                        <MapPinIcon className='size-6 text-error' />
+                        <MapPinIcon className='size-6 flex-shrink-0 text-error' />
                         <div className='text-sm text-gray-700'>{foodOrder.order.order_address}</div>
                     </div>
                     <hr className='mt-4 mb-5'></hr>
                     <ButtonIconOutline text={'Cancel'} buttonType={'error'} isLoading={isLoading} onClick={onClickCancelButton} />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

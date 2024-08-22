@@ -20,7 +20,7 @@ export default function AvatarProfile() {
                 </div>
             </summary>
 
-            <ul className="menu dropdown-content p-2 shadow-lg bg-base-100 rounded-box w-52 z-[1] mt-2 text-primary font-semibold">
+            <ul className="menu dropdown-content p-2 shadow-lg bg-base-100 rounded-box w-52 z-20 mt-2 text-primary font-semibold">
                 <Link to={'/'}><li><div>Profile</div></li></Link>
                 <Link to={'/'}><li><div>Settings</div></li></Link>
                 <li><button onClick={() => onClickLogout()}>Logout</button></li>

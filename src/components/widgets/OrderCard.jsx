@@ -14,7 +14,7 @@ export default function OrderCard({ order }) {
         <div className='mx-auto w-3/4'>
             <div className="collapse collapse-arrow bg-white shadow-xl border px-3">
                 <input type="radio" name="my-accordion-2" defaultChecked />
-                <div className="collapse-title text-xl font-medium overflow-hidden text-ellipsis whitespace-nowrap w-1/2 sm:w-full">
+                <div className="collapse-title text-xl font-medium overflow-hidden text-ellipsis whitespace-nowrap sm:w-full">
                     {order.order_id}
                 </div>
                 <div className="collapse-content">
@@ -28,19 +28,31 @@ export default function OrderCard({ order }) {
                     {/* user info */}
                     <hr className='my-2' />
                     <div className='text-black text-opacity-50'>
-                        <div>first name: <span className='text-black text-opacity-100'>{order.first_name}</span></div>
-                        <div>last name: <span className='text-black text-opacity-100'>{order.last_name}</span></div>
-                        <div>role: {order.role}</div>
+                        <div>
+                            <span className='text-black text-opacity-100'>first name:</span>
+                            {order.first_name}
+                        </div>
+                        <div>
+                            <span className='text-black text-opacity-100'>last name:</span>
+                            {order.last_name}
+                        </div>
+                        <div>
+                            <span className='text-black text-opacity-100'>role:</span>
+                            {order.role}
+                        </div>
                     </div>
 
                     {/* order info */}
                     <hr className='my-2' />
                     <div className='text-xl font-semibold text-primary'>Total: ${order.total_price}</div>
                     <div className='text-black text-opacity-50'>
-                        <div>subtotal: ${order.subtotal_price}</div>
-                        <div>{order.delivery_option.delivery_name.toLowerCase()}: ${order.delivery_option.delivery_cost}</div>
-                        <div>create at: {getFormattedDateTime(order.created_at)}</div>
-                        <div>address: {order.order_address}</div>
+                        <div><span className='text-black text-opacity-100'>subtotal:</span> ${order.subtotal_price}</div>
+                        <div>
+                            <span className='text-black text-opacity-100'>{order.delivery_option.delivery_name.toLowerCase()}:</span>
+                            ${order.delivery_option.delivery_cost}
+                        </div>
+                        <div><span className='text-black text-opacity-100'>create at:</span> {getFormattedDateTime(order.created_at)}</div>
+                        <div><span className='text-black text-opacity-100'>address:</span> {order.order_address}</div>
                     </div>
 
                     {/* order update info */}

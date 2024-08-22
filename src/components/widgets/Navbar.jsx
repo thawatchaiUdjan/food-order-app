@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Bars3Icon, ShoppingBagIcon, CakeIcon } from "@heroicons/react/24/solid"
 import FoodDetailModalContext from "../contexts/FoodDetailModalContext"
@@ -13,6 +13,7 @@ export default function Navbar() {
   const { foodCarts } = useContext(FoodCartContext)
   const { foodOrder } = useContext(OrderContext)
   const { isAdmin } = useContext(AuthContext)
+  const [menuOpen, setMenuOpen] = useState(false)
   const navigate = useNavigate()
 
   function onClickCreateButton() {
@@ -25,32 +26,80 @@ export default function Navbar() {
   }
 
   return (
-    <div className="navbar fixed top-0 z-10 shadow-md bg-white">
-      <div className="flex-none">
-        <button className="btn btn-square btn-ghost">
-          <Bars3Icon className="size-6 text-primary" />
-        </button>
+    <>
+      <div className={`navbar fixed top-0 z-10 ${menuOpen ? 'border-b' : 'shadow-md'} bg-white`}>
+        <div className="flex-none">
+          <button className="btn btn-square btn-ghost flex md:hidden">
+            <Bars3Icon className="size-6 text-primary" onClick={() => setMenuOpen(!menuOpen)} />
+          </button>
+        </div>
+        <div className="flex-1 mx-3">
+          <HomeMenuButton />
+          {/* hide menu collapse */}
+          <div className="hidden md:flex ml-2">
+            {isAdmin && <MenuButton text={'New Food'} onClick={onClickCreateButton} />}
+            {isAdmin && <MenuLink text={'Orders'} link={'/orders'} />}
+          </div>
+        </div>
+        <div className="flex-none">
+          <ul className="menu menu-horizontal px-1 gap-5">
+            <div className="hidden md:flex">
+              {foodOrder ? <FoodOrderButton onclick={onClickOrderButton} /> : <FoodCartButton foodCarts={foodCarts} />}
+              {/* <LinkMenuButton text={"About"} link={'/'} /> */}
+              {/* <LinkMenuButton text={"Contact"} link={'/'} /> */}
+            </div>
+            <AvatarProfile />
+          </ul>
+        </div>
       </div>
-      <div className="flex-1 mx-3">
-        <HomeMenuButton />
-        <CreateFoodButton isAdmin={isAdmin} onClick={onClickCreateButton} />
-        <OrdersButton isAdmin={isAdmin} />
-      </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 gap-5">
-          {foodOrder ? <FoodOrderButton onclick={onClickOrderButton} /> : <FoodCartButton foodCarts={foodCarts} />}
-          {/* <LinkMenuButton text={"About"} link={'/'} /> */}
-          {/* <LinkMenuButton text={"Contact"} link={'/'} /> */}
-          <AvatarProfile></AvatarProfile>
-        </ul>
-      </div>
-    </div>
+
+      {/* floating icons */}
+      {foodOrder ? <FoodOrderFloatingIcon onClick={onClickOrderButton} /> : <FoodCartFloatingIcon foodCarts={foodCarts} />}
+
+      {/* collapse menu */}
+      {(
+        <div className={`collapse-menu fixed top-20 left-0 w-full bg-white md:hidden z-[9] ${menuOpen ? 'open shadow-lg' : 'closed'}`}
+        >
+          <ul className="flex flex-col w-full">
+            {isAdmin && <CollapseMenuButton text={'New Food'} onClick={onClickCreateButton} />}
+            {isAdmin && <CollapseMenuLink text={'Orders'} link={'/orders'} />}
+          </ul>
+        </div>
+      )}
+    </>
+  )
+}
+
+function FoodOrderFloatingIcon({ onClick }) {
+  return (
+    <button
+      className="md:hidden fixed bottom-5 right-5 shadow-lg transition-colors btn btn-success btn-circle text-white z-20"
+      onClick={onClick}
+    >
+      <CakeIcon className="size-6" />
+    </button>
+  )
+}
+
+function FoodCartFloatingIcon({ foodCarts }) {
+  return (
+    <Link to={'/food_cart'}>
+      <button
+        className="md:hidden fixed bottom-5 right-5 shadow-lg transition-colors btn btn-primary btn-circle z-20"
+      >
+        <ShoppingBagIcon className="size-6" />
+        <div className="absolute top-[-5px] right-[-5px] shadow-xl">
+          {foodCarts.length > 0 && (<div className="rounded-full size-6 bg-primary flex items-center justify-center">{foodCarts.length}</div>)}
+        </div>
+      </button>
+    </Link>
   )
 }
 
 function FoodOrderButton({ onclick }) {
   return (
-    <button className="btn btn-success text-base text-white" onClick={onclick}>
+    <button className="btn btn-success text-base text-white"
+      onClick={onclick}>
       <CakeIcon className="size-5" />
       <span className="uppercase">Order</span>
     </button>
@@ -79,10 +128,46 @@ function LinkMenuButton({ text, link }) {
   )
 }
 
-function CreateFoodButton({ isAdmin, onClick }) {
-  return isAdmin && (<button onClick={onClick} className="btn btn-ghost text-lg font-normal text-primary uppercase ml-3">New Food</button>)
+function MenuButton({ text, onClick }) {
+  return (
+    <div onClick={onClick}
+      className="btn btn-ghost text-lg font-normal text-primary uppercase">
+      {text}
+    </div>
+  )
 }
 
-function OrdersButton({ isAdmin }) {
-  return isAdmin && (<Link to={'/orders'}><button className="btn btn-ghost text-lg font-normal text-primary uppercase">Orders</button></Link>)
+function MenuLink({ text, link }) {
+  return (
+    <Link to={link}>
+      <button className="btn btn-ghost text-lg font-normal text-primary uppercase">
+        {text}
+      </button>
+    </Link>
+  )
+}
+
+function CollapseMenuButton({ text, onClick }) {
+  return (
+    <>
+      <hr />
+      <li
+        className="btn btn-ghost text-primary text-md uppercase justify-start font-semibold rounded-none"
+        onClick={onClick}>
+        {text}
+      </li>
+    </>
+  )
+}
+
+function CollapseMenuLink({ text, link }) {
+  return (
+    <>
+      <hr />
+      <Link to={link}
+        className="btn btn-ghost text-primary text-md uppercase justify-start font-semibold rounded-none">
+        {text}
+      </Link>
+    </>
+  )
 }

@@ -14,8 +14,8 @@ export default function FoodList() {
     }, [])
 
     return (
-        <div className='mx-10 my-5'>
-            <div className='flex items-baseline gap-4 ml-2 mb-2'>
+        <div className='mx-8 sm:mx-10 my-5'>
+            <div className='flex items-baseline gap-4 sm:ml-2 mb-6'>
                 <button className={`text-3xl font-bold text-primary border-primary pb-2
                     ${foodListCategory == 0 ? 'border-b-2' : ''}`}
                     onClick={() => setFoodListCategory(0)}>
@@ -27,7 +27,7 @@ export default function FoodList() {
                     Resent
                 </button>
             </div>
-            <div className='grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            <div className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                 <FoodOptionModalProvider>
                     {
                         foods.map((food, index) => (

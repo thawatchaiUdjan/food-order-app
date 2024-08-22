@@ -3,12 +3,19 @@ import React from 'react'
 export default function OrderFoodDetail({ food }) {
     return (
         <div className='flex flex-row items-center mt-2'>
-            <div className='w-1/4 sm:w-1/2 md:w-full'>
+            <div className='flex-1'>
                 <div className='text-lg overflow-hidden text-ellipsis whitespace-nowrap'>
                     {food.food_name}
                 </div>
-                <div className='text-sm text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap'>
-                    {food.food_description}
+                {
+                    food.food_option_string.map((option, index) => (
+                        <span key={index} className='text-sm text-gray-500 overflow-hidden text-ellipsis whitespace-nowrap mr-1'>
+                            {index == food.food_option_string.length - 1 ? option : `${option},`}
+                        </span>
+                    ))
+                }
+                <div className='text-xs text-gray-400 overflow-hidden text-ellipsis whitespace-nowrap'>
+                    {food.food_option_note}
                 </div>
             </div>
             <div className='text-black text-opacity-50 text-sm'>

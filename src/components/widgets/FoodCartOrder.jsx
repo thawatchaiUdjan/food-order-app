@@ -37,9 +37,9 @@ export default function FoodCartOrder() {
         await createOrder({
             order: {
                 subtotal_price: subtotalCost,
-                delivery_price: delivery.delivery_cost,
                 total_price: totalCost,
                 order_address: location.address,
+                order_delivery_option: delivery._id,
             },
             foods: foodCarts
         })
@@ -61,24 +61,31 @@ export default function FoodCartOrder() {
             <div className="flex flex-col w-full">
                 <div className="text-center text-3xl text-primary uppercase">Your Cart</div>
 
-
+                {/* delivery location */}
                 <HeaderText text={'Address'} />
                 <MapLocationModalProvider>
                     <DeliveryAddress />
                 </MapLocationModalProvider>
 
+                {/* delivery options */}
                 <LineDivider />
                 <HeaderText text={'Delivery'} />
-                <DeliveryList />
+                <DeliveryOptionList />
+                
+                {/* foods cart */}
                 <LineDivider />
                 <HeaderText text={'Food'} />
                 <FoodCartList />
+
+                {/* summary order */}
                 <LineDivider />
                 <FoodCartSummarize
                     subtotalCost={subtotalCost}
                     deliveryCost={delivery.delivery_cost}
                     totalCost={totalCost} >
                 </FoodCartSummarize>
+
+                {/* button group */}
                 <ButtonIcon
                     text={'Order'}
                     icon={<ArrowRightIcon className='size-5' />}
@@ -104,13 +111,13 @@ function DeliveryAddress() {
             className='w-full h-auto p-3 btn btn-outline btn-primary font-normal flex flex-row items-center justify-start'
             onClick={() => openMapLocation(onSelectLocation)}>
             <MapPinIcon className='size-6 text-error' />
-            <div className='text-sm flex-1 lg:flex-none'>{location ? location.address : 'Choose your location'}</div>
-            <div className='lg:flex-1'><ChevronDownIcon className='size-6 ml-auto' /></div>
+            <div className='text-sm flex-1 xl:flex-none'>{location ? location.address : 'Choose your location'}</div>
+            <div className='xl:flex-1'><ChevronDownIcon className='size-6 ml-auto' /></div>
         </div>
     )
 }
 
-function DeliveryList() {
+function DeliveryOptionList() {
     const { deliveryOptions, getDeliveryOptions, clearDeliveryOption } = useContext(FoodCartContext)
 
     useEffect(() => {

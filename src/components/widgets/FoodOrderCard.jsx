@@ -4,6 +4,7 @@ import { CheckIcon, BellAlertIcon, BeakerIcon, TruckIcon, ClockIcon } from '@her
 import ButtonIconOutline from './ButtonIconOutline'
 import ConfirmModalContext from '../contexts/ConfirmModalContext'
 import OrderFoodDetail from './OrderFoodDetail'
+import { MapPinIcon } from '@heroicons/react/24/solid'
 
 export default function FoodOrderCard() {
     const statuses = [
@@ -57,7 +58,7 @@ export default function FoodOrderCard() {
                                 <FoodStatusItem
                                     key={index}
                                     index={index}
-                                    status={foodOrder.order.status_value}
+                                    status={foodOrder.order.order_status.status_value}
                                     text={status.text}
                                     icon={status.icon}>
                                 </FoodStatusItem>
@@ -65,23 +66,23 @@ export default function FoodOrderCard() {
                         }
                     </ul>
                 </div>
-                <div className="collapse-content pl-7 pt-3">
-                    <div className='sm:flex justify-between text-lg font-bold'>
-                        <div>Your Food</div>
-                        <div>
-                            <span className='font-normal text-sm text-black text-opacity-50 mr-3'>
-                                <span className='mr-2'>subtotal: ${foodOrder.order.subtotal_price}</span>
-                                <span>delivery: ${foodOrder.order.delivery_price}</span>
-                            </span>
-                            <span className='mr-1'>Total: </span>
-                            <span className='text-xl'>${foodOrder.order.total_price}</span>
-                        </div>
+                <div className="collapse-content pl-7 pt-0 sm:pt-3">
+                    <div className='flex flex-col sm:flex-row items-baseline text-lg font-bold gap-1 sm:gap-3'>
+                        <div className='flex-1'>Your Food</div>
+                        <div className='font-normal text-sm text-black text-opacity-50'>Subtotal: ${foodOrder.order.subtotal_price}</div>
+                        <div className='font-normal text-sm text-black text-opacity-50'>{foodOrder.order.order_delivery_option.delivery_name}: ${foodOrder.order.order_delivery_option.delivery_cost}</div>
+                        <div className='text-xl'>Total: ${foodOrder.order.total_price}</div>
                     </div>
                     <hr className='my-2'></hr>
                     {
                         foodOrder.foods.map((food, index) => (<OrderFoodDetail key={index} food={food} />))
                     }
-                    <hr className='my-5'></hr>
+                    <hr className='my-3'></hr>
+                    <div className='flex flex-row items-center gap-2'>
+                        <MapPinIcon className='size-6 text-error' />
+                        <div className='text-sm text-gray-700'>{foodOrder.order.order_address}</div>
+                    </div>
+                    <hr className='mt-4 mb-5'></hr>
                     <ButtonIconOutline text={'Cancel'} buttonType={'error'} isLoading={isLoading} onClick={onClickCancelButton} />
                 </div>
             </div>

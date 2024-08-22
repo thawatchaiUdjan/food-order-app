@@ -28,9 +28,9 @@ export default function OrderCard({ order }) {
                     {/* user info */}
                     <hr className='my-2' />
                     <div className='text-black text-opacity-50'>
-                        <div>First name: <span className='text-black text-opacity-100'>{order.first_name}</span></div>
-                        <div>Last name: <span className='text-black text-opacity-100'>{order.last_name}</span></div>
-                        <div>Role: {order.role}</div>
+                        <div>first name: <span className='text-black text-opacity-100'>{order.first_name}</span></div>
+                        <div>last name: <span className='text-black text-opacity-100'>{order.last_name}</span></div>
+                        <div>role: {order.role}</div>
                     </div>
 
                     {/* order info */}
@@ -38,8 +38,9 @@ export default function OrderCard({ order }) {
                     <div className='text-xl font-semibold text-primary'>Total: ${order.total_price}</div>
                     <div className='text-black text-opacity-50'>
                         <div>subtotal: ${order.subtotal_price}</div>
-                        <div>delivery: ${order.delivery_price}</div>
+                        <div>{order.delivery_option.delivery_name.toLowerCase()}: ${order.delivery_option.delivery_cost}</div>
                         <div>create at: {getFormattedDateTime(order.created_at)}</div>
+                        <div>address: {order.order_address}</div>
                     </div>
 
                     {/* order update info */}

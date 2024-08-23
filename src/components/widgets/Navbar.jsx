@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Bars3Icon, ShoppingBagIcon, CakeIcon } from "@heroicons/react/24/solid"
+import { Bars3Icon, ShoppingBagIcon, CakeIcon, XMarkIcon } from "@heroicons/react/24/solid"
 import FoodDetailModalContext from "../contexts/FoodDetailModalContext"
 import FoodCartContext from "../contexts/FoodCartContext"
 import AvatarProfile from "./AvatarProfile"
@@ -25,13 +25,19 @@ export default function Navbar() {
     scroll.scrollToTop()
   }
 
+  function onClickToggleMenuButton() {
+    setMenuOpen(!menuOpen);
+  }
+
   return (
     <>
       <div className={`navbar fixed top-0 z-10 ${menuOpen ? 'border-b' : 'shadow-md'} bg-white`}>
         <div className="flex-none">
-          <button className="btn btn-square btn-ghost flex md:hidden">
-            <Bars3Icon className="size-6 text-primary" onClick={() => setMenuOpen(!menuOpen)} />
-          </button>
+          <label className="btn btn-square btn-ghost md:hidden swap swap-rotate">
+            <input type="checkbox"/>
+            <Bars3Icon className="size-6 text-primary swap-off" onClick={onClickToggleMenuButton} />
+            <XMarkIcon className="size-6 text-primary swap-on" onClick={onClickToggleMenuButton} />
+          </label>
         </div>
         <div className="flex-1 mx-3">
           <HomeMenuButton />

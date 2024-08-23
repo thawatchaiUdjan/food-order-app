@@ -4,6 +4,18 @@ import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import FoodCartContext from '../contexts/FoodCartContext'
 import AuthContext from '../contexts/AuthContext'
+import L from 'leaflet'
+import mapMarkerIcon from '../../assets/map-pin.png'
+
+const markerIcon = new L.Icon({
+    iconUrl: mapMarkerIcon,
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    shadowSize: [32, 32],
+    shadowAnchor: [16, 32],
+})
 
 export default function MapLocation({ isShow, close, onSelect }) {
     const defaultLocation = [13.7563, 100.5018] // center of thailand
@@ -67,7 +79,7 @@ function LocationMarker({ onSelect, defaultPosition, setCurrentLocation }) {
     })
 
     return position ? (
-        <Marker position={position} />
+        <Marker position={position} icon={markerIcon} />
     ) : null
 }
 

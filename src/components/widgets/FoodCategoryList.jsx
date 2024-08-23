@@ -1,13 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import FoodCategoryContext from '../contexts/FoodCategoryContext'
 import FoodCategoryCard from './FoodCategoryCard'
 
 export default function FoodCategoryList() {
-    const { category, fetchCategory } = useContext(FoodCategoryContext)
-
-    useEffect(() => {
-        fetchCategory()
-    }, [])
+    const { category } = useContext(FoodCategoryContext)
 
     return (
         <div className="mx-8 sm:mx-12 mb-5 pb-5">

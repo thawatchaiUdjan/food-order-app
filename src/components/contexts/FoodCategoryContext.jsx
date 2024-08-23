@@ -1,5 +1,5 @@
 import { logFormData, waitForSecond } from '../../utils'
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, useState, useContext, useEffect } from 'react'
 import LoadingContext from './LoadingContext'
 import AlertMessageContext from './AlertMessageContext'
 import { sendDeleteRequest, sendGetRequest, sendPostRequest, sendPutRequest } from '../../api-service'
@@ -16,6 +16,10 @@ export function FoodCategoryProvider({ children }) {
     category_id: 0,
     category_name: 'All'
   }
+
+  useEffect(() => {
+    fetchCategory()
+  }, []);
 
   async function fetchCategory() {
     try {

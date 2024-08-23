@@ -4,7 +4,6 @@ export const unusedFoodFields = [
   'id',
   'food_id',
   'food_image_url',
-  'category_id',
   'created_at',
   'updated_at',
 ]
@@ -15,7 +14,13 @@ export function getFilterFormData(data, filterField) {
 
 export function getCombineFormData(data) {
   const formData = new FormData()
-  Object.keys(data).forEach(key => { formData.append(key, data[key]) })
+  Object.keys(data).forEach(key => {
+    if (Array.isArray(data[key])) {
+      data[key].forEach(item => formData.append(key, item))
+    } else {
+      formData.append(key, data[key])
+    }
+  })
   return formData
 }
 
@@ -45,4 +50,8 @@ export function getFormattedDateTime(date) {
   }
   const dateObject = date instanceof Date ? date : new Date(date)
   return new Intl.DateTimeFormat('en-GB', options).format(dateObject)
+}
+
+export function getTransformField(data, targetField, field) {
+  return data[targetField].length > 0 ? data[targetField].map(option => option[field]) : data[targetField]
 }

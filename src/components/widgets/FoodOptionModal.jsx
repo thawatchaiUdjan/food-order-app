@@ -112,7 +112,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                 </div>
                 {
                     option.option_choices.map((choice, index) => (
-                        <div key={index} className='flex gap-3 mb-3'>
+                        <label key={index} className='flex gap-3 mb-3 cursor-pointer'>
                             <input
                                 type='radio'
                                 className={`radio ${errors[name] ? 'radio-error' : 'radio-primary'} `}
@@ -120,7 +120,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                                 {...register(name, rules)}
                             />
                             <span className={`${errors[name] ? 'text-error' : ''}`}>{choice.choice_name}</span>
-                        </div>
+                        </label>
                     ))
                 }
             </div>
@@ -136,7 +136,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                 </div>
                 {
                     option.option_choices.map((choice, index) => (
-                        <div key={index} className='flex gap-3 mb-3'>
+                        <label key={index} className='flex gap-3 mb-3 cursor-pointer'>
                             <input
                                 className={`checkbox ${errors[name] ? 'checkbox-error' : 'checkbox-primary'} `}
                                 type='checkbox'
@@ -144,7 +144,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                                 {...register(name, rules)}
                             />
                             <span className={`${errors[name] ? 'text-error' : ''}`}>{choice.choice_name}</span>
-                        </div>
+                        </label>
                     ))
                 }
             </div>

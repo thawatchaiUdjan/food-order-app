@@ -25,10 +25,13 @@ export function FoodCategoryProvider({ children }) {
     try {
       showLoading()
       const res = await sendGetRequest(CATEGORY_GET)
+      await waitForSecond()
       setCategory(res.data)
       addCategory(defaultCategory)
     } catch (err) {
       console.log(err.response.data.message)
+    } finally {
+      hideLoading()
     }
   }
 

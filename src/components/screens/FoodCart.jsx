@@ -6,6 +6,8 @@ import { OrderProvider } from '../contexts/OrderContext'
 import Navbar from '../widgets/Navbar'
 import FoodCartContext from '../contexts/FoodCartContext'
 import FoodCartOrder from '../widgets/FoodCartOrder'
+import { FoodCategoryProvider } from '../contexts/FoodCategoryContext'
+import { FoodOptionProvider } from '../contexts/FoodOptionContext'
 
 export default function FoodCart() {
   const { foodCarts } = useContext(FoodCartContext)
@@ -13,12 +15,16 @@ export default function FoodCart() {
   return (
     <>
       <FoodProvider>
-        <FoodDetailModalProvider>
-          <OrderProvider>
-            <Navbar />
-            {foodCarts.length > 0 ? (<FoodCartOrder />) : (<FoodNoPage />)}
-          </OrderProvider>
-        </FoodDetailModalProvider>
+        <FoodCategoryProvider>
+          <FoodOptionProvider>
+            <FoodDetailModalProvider>
+              <OrderProvider>
+                <Navbar />
+                {foodCarts.length > 0 ? (<FoodCartOrder />) : (<FoodNoPage />)}
+              </OrderProvider>
+            </FoodDetailModalProvider>
+          </FoodOptionProvider>
+        </FoodCategoryProvider>
       </FoodProvider>
     </ >
   )

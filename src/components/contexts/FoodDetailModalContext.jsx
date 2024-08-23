@@ -11,6 +11,8 @@ export function FoodDetailModalProvider({ children }) {
     food_price_discount: '',
     food_description: '',
     food_image_url: '',
+    category_id: '',
+    food_options: [],
   }
   const [food, setFood] = useState(defaultFood)
   const [isNew, setIsNew] = useState(false)

@@ -9,23 +9,26 @@ import Navbar from '../widgets/Navbar'
 import FoodList from '../widgets/FoodList'
 import FoodOrderCard from '../widgets/FoodOrderCard'
 import HomeTopHeader from '../widgets/HomeTopHeader'
+import { FoodOptionProvider } from '../contexts/FoodOptionContext'
 
 export default function Home() {
   return (
     <>
       <FoodProvider>
-        <FoodDetailModalProvider>
-          <OrderProvider>
-            <Navbar />
-            <FoodCategoryProvider>
-              <FoodOrderCard />
-              <HomeTopHeader />
-              <InputSearchFood />
-              <FoodCategoryList />
-              <FoodList />
-            </FoodCategoryProvider>
-          </OrderProvider>
-        </FoodDetailModalProvider>
+        <FoodCategoryProvider>
+          <FoodOptionProvider>
+            <FoodDetailModalProvider>
+              <OrderProvider>
+                <Navbar />
+                <FoodOrderCard />
+                <HomeTopHeader />
+                <InputSearchFood />
+                <FoodCategoryList />
+                <FoodList />
+              </OrderProvider>
+            </FoodDetailModalProvider>
+          </FoodOptionProvider>
+        </FoodCategoryProvider>
       </FoodProvider>
     </>
   )

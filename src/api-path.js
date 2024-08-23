@@ -13,3 +13,5 @@ export const ORDER_ALL = '/orders/all-order'
 export const ORDER_STATUS = '/order-status'
 
 export const DELIVERY_OPTION = '/delivery'
+
+export const FOOD_OPTION = '/food-option'

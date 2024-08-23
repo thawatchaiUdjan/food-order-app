@@ -93,6 +93,9 @@ async function getCurrentPosition() {
             (position) => {
                 const { latitude, longitude } = position.coords
                 resolve([latitude, longitude])
+            },
+            (error) => {
+                resolve(null)
             }
         )
     })

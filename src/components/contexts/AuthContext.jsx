@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 import { sendPostRequest } from '../../api-service'
-import { USER_LOGIN, USER_REGISTER } from '../../api-path'
+import { USER_GOOGLE_LOGIN, USER_LOGIN, USER_REGISTER } from '../../api-path'
 
 const AuthContext = createContext()
 
@@ -28,6 +28,16 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    async function googleLogin(data) {
+        try {
+            const res = await sendPostRequest(USER_GOOGLE_LOGIN, data, false)
+            setUserData(res.data)
+        } catch (err) {
+            console.log(err.response.data.message);
+            throw err
+        }
+    }
+
     function logout() {
         localStorage.removeItem('token')
         localStorage.removeItem('user')
@@ -50,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAdmin, login, register, logout }}>
+        <AuthContext.Provider value={{ user, isAdmin, login, register, logout, googleLogin }}>
             {children}
         </AuthContext.Provider>
     )

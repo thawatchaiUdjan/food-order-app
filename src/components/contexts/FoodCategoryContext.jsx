@@ -19,7 +19,7 @@ export function FoodCategoryProvider({ children }) {
 
   useEffect(() => {
     fetchCategory()
-  }, []);
+  }, [])
 
   async function fetchCategory() {
     try {

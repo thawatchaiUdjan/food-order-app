@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import FoodCartContext from '../contexts/FoodCartContext';
+import FoodCartContext from '../contexts/FoodCartContext'
 
 export default function DeliveryOptionCard({ option }) {
     const { delivery, setDelivery } = useContext(FoodCartContext)

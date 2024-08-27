@@ -26,7 +26,7 @@ export default function Navbar() {
   }
 
   function onClickToggleMenuButton() {
-    setMenuOpen(!menuOpen);
+    setMenuOpen(!menuOpen)
   }
 
   return (

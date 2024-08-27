@@ -7,6 +7,7 @@ import AuthContext from '../contexts/AuthContext'
 import FacebookIcon from '../../assets/facebook-icon.png'
 import GoogleLoginButton from '../widgets/GoogleLoginButton'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import FacebookLoginButton from '../widgets/FacebookLoginButton'
 
 export default function Login() {
     const { login, register } = useContext(AuthContext)
@@ -93,13 +94,7 @@ export default function Login() {
             <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
                 <GoogleLoginButton />
             </GoogleOAuthProvider>
-            <div
-                className="btn rounded-full w-full bg-[#1877F2] font-normal text-white hover:bg-[#135fc1]"
-                onClick={() => { }}>
-                <img src={FacebookIcon}
-                    className='size-6 mr-2' />
-                <span>Sign in with Facebook</span>
-            </div>
+            <FacebookLoginButton />
         </form>
     )
 

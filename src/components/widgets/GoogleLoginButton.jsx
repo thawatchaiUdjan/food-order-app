@@ -21,12 +21,12 @@ export default function GoogleLoginButton() {
     }
 
     function onSignInError(err) {
-        console.log('Google Sign-In Error:', err.message);
+        console.log('Google Sign-In Error:', err.message)
         hideLoading()
     }
 
     function onNoneSignIn(err) {
-        console.warn('Google Sign-In warning:', err.message);
+        console.warn('Google Sign-In warning:', err.message)
         hideLoading()
     }
 

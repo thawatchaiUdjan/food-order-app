@@ -36,7 +36,7 @@ export default function MapLocation({ isShow, close, onSelect }) {
 
     useEffect(() => {
         setDefaultLocation()
-    }, []);
+    }, [])
 
     return (
         !isLoading &&
@@ -46,7 +46,7 @@ export default function MapLocation({ isShow, close, onSelect }) {
                 <MapContainer center={currentLocation} zoom={currentLocation === defaultLocation ? 10 : 15} style={{ height: '400px', width: '100%' }}>
                     <TileLayer
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        attribution='&copy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                     <LocationMarker
                         onSelect={onSelect}
@@ -66,7 +66,7 @@ function LocationMarker({ onSelect, defaultPosition, setCurrentLocation }) {
 
     useEffect(() => {
         setPosition(defaultPosition)
-    }, [defaultPosition]);
+    }, [defaultPosition])
 
     useMapEvents({
         async click(event) {

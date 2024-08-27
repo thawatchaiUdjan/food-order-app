@@ -17,7 +17,7 @@ export function FoodOptionProvider({ children }) {
             await waitForSecond() //wait for 0.5s for see anim. can be remove.
             setFoodOptions(res.data)
         } catch (err) {
-            console.log(err.message);
+            console.log(err.message)
         } finally {
             hideLoading()
         }
@@ -25,7 +25,7 @@ export function FoodOptionProvider({ children }) {
 
     useEffect(() => {
         getFoodOptions()
-    }, []);
+    }, [])
 
     return (
         <FoodOptionContext.Provider value={{ foodOptions }}>

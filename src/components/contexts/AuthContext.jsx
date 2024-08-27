@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react'
 import { sendPostRequest } from '../../api-service'
-import { USER_GOOGLE_LOGIN, USER_LOGIN, USER_REGISTER } from '../../api-path'
+import { USER_FACEBOOK_LOGIN, USER_GOOGLE_LOGIN, USER_LOGIN, USER_REGISTER } from '../../api-path'
 
 const AuthContext = createContext()
 
@@ -33,7 +33,17 @@ export const AuthProvider = ({ children }) => {
             const res = await sendPostRequest(USER_GOOGLE_LOGIN, data, false)
             setUserData(res.data)
         } catch (err) {
-            console.log(err.response.data.message);
+            console.log(err.response.data.message)
+            throw err
+        }
+    }
+
+    async function facebookLogin(data) {
+        try {
+            const res = await sendPostRequest(USER_FACEBOOK_LOGIN, data, false)            
+            setUserData(res.data)
+        } catch (err) {
+            console.log(err.response.data.message)
             throw err
         }
     }
@@ -60,7 +70,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAdmin, login, register, logout, googleLogin }}>
+        <AuthContext.Provider value={{ user, isAdmin, login, register, logout, googleLogin, facebookLogin }}>
             {children}
         </AuthContext.Provider>
     )

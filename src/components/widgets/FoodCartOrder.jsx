@@ -95,7 +95,7 @@ export default function FoodCartOrder() {
                     disabled={!(foodCarts && delivery && location && user.user.balance > totalCost)}
                     onClick={onClickOrderButton}
                 />
-                <Link to={'/profile'}><div className='text-center text-xs text-primary underline italic mt-3'>your balance: ${user.user.balance}</div></Link>
+                <Link to={'/profile'}><div className='text-center text-xs text-primary underline italic mt-3'>your balance: ${user.user.balance.toFixed(2)}</div></Link>
             </div>
         </div>
     )

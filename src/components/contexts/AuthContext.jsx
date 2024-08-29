@@ -54,9 +54,9 @@ export const AuthProvider = ({ children }) => {
     async function updateUser(data) {
         try {
             showLoading(false)
-            const res = await sendPutRequest(USER_GET, data, true)
+            const res = await sendPutRequest(USER_GET, data)
             await waitForSecond()
-            setUser(user => ({ ...user, user: res.data.user }))
+            setUserData(res.data.user)
         } catch (err) {
             console.log(err.response.data.message)
             throw err
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }) => {
     async function getUserData() {
         try {
             showLoading()
-            const res = await sendGetRequest(USER_GET, true)
+            const res = await sendGetRequest(USER_GET)
             await waitForSecond()
             setUserData(res.data)
         } catch (err) {
@@ -103,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     async function deleteUser() {
         try {
             showLoading(false)
-            const res = await sendDeleteRequest(USER_GET, true)
+            const res = await sendDeleteRequest(USER_GET)
             await waitForSecond(1000)
             logout()
         } catch (err) {
@@ -119,7 +119,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, isAdmin, updateUser, deleteUser, login, register, logout, googleLogin, facebookLogin }}>
+        <AuthContext.Provider value={{ user, isAdmin, updateUser, deleteUser, setUserData, login, register, logout, googleLogin, facebookLogin }}>
             {children}
         </AuthContext.Provider>
     )

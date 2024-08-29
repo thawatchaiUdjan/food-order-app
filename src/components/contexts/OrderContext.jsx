@@ -5,6 +5,7 @@ import { ORDER_ALL, ORDER_GET, ORDER_STATUS } from '../../api-path'
 import LoadingContext from './LoadingContext'
 import AlertMessageContext from './AlertMessageContext'
 import Swal from 'sweetalert2'
+import AuthContext from './AuthContext'
 
 const OrderContext = createContext()
 
@@ -14,6 +15,7 @@ export function OrderProvider({ children }) {
     const [orderStatus, SetOrderStatus] = useState([])
     const { showLoading, hideLoading } = useContext(LoadingContext)
     const { showAlert } = useContext(AlertMessageContext)
+    const { setUserData } = useContext(AuthContext)
 
     async function getOrder() {
         try {
@@ -45,11 +47,12 @@ export function OrderProvider({ children }) {
             const res = await sendPostRequest(ORDER_GET, order)
             await waitForSecond(800) //wait for 0.5s for see anim. can be remove.
             SetFoodOrder(res.data.foodOrder)
+            setUserData(res.data.user)
             Swal.fire({
                 icon: "success",
                 text: res.data.message,
                 showConfirmButton: false,
-                timer: 3000
+                timer: 2000
             })
         } catch (err) {
             console.log(err.response.data.message)

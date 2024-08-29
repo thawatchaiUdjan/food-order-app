@@ -55,3 +55,8 @@ export function getFormattedDateTime(date) {
 export function getTransformField(data, targetField, field) {
   return data[targetField].length > 0 ? data[targetField].map(option => option[field]) : data[targetField]
 }
+
+export function getNumberFormatWithComma(value) {
+  const numericNumber = value.toString().replace(/[^0-9]/g, '')
+  return numericNumber ? new Intl.NumberFormat().format(numericNumber) : ''
+}

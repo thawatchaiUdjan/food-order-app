@@ -1,10 +1,13 @@
-import React, { createContext, useState } from 'react'
-import { sendPostRequest } from '../../api-service'
-import { USER_FACEBOOK_LOGIN, USER_GOOGLE_LOGIN, USER_LOGIN, USER_REGISTER } from '../../api-path'
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { sendDeleteRequest, sendGetRequest, sendPostRequest, sendPutRequest } from '../../api-service'
+import { USER_FACEBOOK_LOGIN, USER_GET, USER_GOOGLE_LOGIN, USER_LOGIN, USER_REGISTER } from '../../api-path'
+import LoadingContext from './LoadingContext'
+import { waitForSecond } from '../../utils'
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
+    const { showLoading, hideLoading } = useContext(LoadingContext)
     const [user, setUser] = useState({ user: getUser(), token: getToken() })
     const [isAdmin, setIsAdmin] = useState(user.user && user.user.role == 'admin')
 
@@ -40,11 +43,25 @@ export const AuthProvider = ({ children }) => {
 
     async function facebookLogin(data) {
         try {
-            const res = await sendPostRequest(USER_FACEBOOK_LOGIN, data, false)            
+            const res = await sendPostRequest(USER_FACEBOOK_LOGIN, data, false)
             setUserData(res.data)
         } catch (err) {
             console.log(err.response.data.message)
             throw err
+        }
+    }
+
+    async function updateUser(data) {
+        try {
+            showLoading(false)
+            const res = await sendPutRequest(USER_GET, data, true)
+            await waitForSecond()
+            setUser(user => ({ ...user, user: res.data.user }))
+        } catch (err) {
+            console.log(err.response.data.message)
+            throw err
+        } finally {
+            hideLoading()
         }
     }
 
@@ -69,8 +86,40 @@ export const AuthProvider = ({ children }) => {
         return JSON.parse(localStorage.getItem('user'))
     }
 
+    async function getUserData() {
+        try {
+            showLoading()
+            const res = await sendGetRequest(USER_GET, true)
+            await waitForSecond()
+            setUserData(res.data)
+        } catch (err) {
+            console.log(err.response.data.message)
+            logout()
+        } finally {
+            hideLoading()
+        }
+    }
+
+    async function deleteUser() {
+        try {
+            showLoading(false)
+            const res = await sendDeleteRequest(USER_GET, true)
+            await waitForSecond(1000)
+            logout()
+        } catch (err) {
+            console.log(err.response.data.message)
+            throw err
+        } finally {
+            hideLoading()
+        }
+    }
+
+    useEffect(() => {
+        getUserData()
+    }, [])
+
     return (
-        <AuthContext.Provider value={{ user, isAdmin, login, register, logout, googleLogin, facebookLogin }}>
+        <AuthContext.Provider value={{ user, isAdmin, updateUser, deleteUser, login, register, logout, googleLogin, facebookLogin }}>
             {children}
         </AuthContext.Provider>
     )

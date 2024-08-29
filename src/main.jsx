@@ -16,6 +16,7 @@ import FoodCart from './components/screens/FoodCart.jsx'
 import Login from './components/screens/Login.jsx'
 import NotFound from './components/screens/NotFound.jsx'
 import Order from './components/screens/Order.jsx'
+import Profile from './components/screens/Profile.jsx'
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/profile",
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: "*",
     element: <NotFound />,
   },
@@ -66,16 +75,16 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode data-theme='customTheme'>
-    <AuthProvider>
-      <LoadingProvider>
-        <ConfirmModalProvider>
-          <AlertMessageProvider>
+    <LoadingProvider>
+      <ConfirmModalProvider>
+        <AlertMessageProvider>
+          <AuthProvider>
             <FoodCartProvider>
               <RouterProvider router={router} />
             </FoodCartProvider>
-          </AlertMessageProvider>
-        </ConfirmModalProvider>
-      </LoadingProvider>
-    </AuthProvider>
+          </AuthProvider>
+        </AlertMessageProvider>
+      </ConfirmModalProvider>
+    </LoadingProvider>
   </React.StrictMode>,
 )

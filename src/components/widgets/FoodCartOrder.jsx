@@ -5,15 +5,17 @@ import FoodCartList from '../widgets/FoodCartList'
 import ConfirmModalContext from '../contexts/ConfirmModalContext'
 import OrderContext from '../contexts/OrderContext'
 import ButtonIcon from './ButtonIcon'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import DeliveryOptionCard from './DeliveryOptionCard'
 import { MapPinIcon } from '@heroicons/react/24/solid'
 import MapLocationModalContext, { MapLocationModalProvider } from '../contexts/MapLocationContext'
+import AuthContext from '../contexts/AuthContext'
 
 export default function FoodCartOrder() {
     const { foodCarts, delivery, location, clearFoodCart } = useContext(FoodCartContext)
     const { open } = useContext(ConfirmModalContext)
     const { createOrder } = useContext(OrderContext)
+    const { user } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
     const [subtotalCost, setSubtotal] = useState(0)
     const [totalCost, setTotalCost] = useState(0)
@@ -71,7 +73,7 @@ export default function FoodCartOrder() {
                 <LineDivider />
                 <HeaderText text={'Delivery'} />
                 <DeliveryOptionList />
-                
+
                 {/* foods cart */}
                 <LineDivider />
                 <HeaderText text={'Food'} />
@@ -90,9 +92,10 @@ export default function FoodCartOrder() {
                     text={'Order'}
                     icon={<ArrowRightIcon className='size-5' />}
                     isLoading={isLoading}
-                    disabled={!(foodCarts && delivery && location)}
+                    disabled={!(foodCarts && delivery && location && user.user.balance > totalCost)}
                     onClick={onClickOrderButton}
                 />
+                <Link to={'/profile'}><div className='text-center text-xs text-primary underline italic mt-3'>your balance: ${user.user.balance}</div></Link>
             </div>
         </div>
     )
@@ -109,7 +112,7 @@ function DeliveryAddress() {
     return (
         <div
             className='w-full h-auto p-3 btn btn-outline btn-primary font-normal flex flex-row items-center justify-start'
-            onClick={() => openMapLocation(onSelectLocation)}>
+            onClick={() => openMapLocation(location, onSelectLocation)}>
             <MapPinIcon className='size-6 text-error' />
             <div className='text-sm flex-1 xl:flex-none'>{location ? location.address : 'Choose your location'}</div>
             <div className='xl:flex-1'><ChevronDownIcon className='size-6 ml-auto' /></div>

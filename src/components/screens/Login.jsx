@@ -103,19 +103,11 @@ export default function Login() {
             <p className='text-primary'>Personal Information</p>
             <InputText
                 id={'first-name-input'}
-                placeholder={'First name'}
+                placeholder={'Name'}
                 register={registerForm.register}
-                rules={{ required: 'First name is required' }}
-                name={'first_name'}
-                error={registerForm.formState.errors.first_name}>
-            </InputText>
-            <InputText
-                id={'last-name-input'}
-                placeholder={'Last name'}
-                register={registerForm.register}
-                rules={{ required: 'Last name is required' }}
-                name={'last_name'}
-                error={registerForm.formState.errors.last_name}>
+                rules={{ required: 'Name is required' }}
+                name={'name'}
+                error={registerForm.formState.errors.name}>
             </InputText>
             <p className='text-primary mt-5'>User Information</p>
             <InputText

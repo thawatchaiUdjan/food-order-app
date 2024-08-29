@@ -6,8 +6,10 @@ const MapLocationModalContext = createContext()
 export function MapLocationModalProvider({ children }) {
     const [isShow, setIsShow] = useState(false)
     const [onSelect, setOnSelect] = useState(null)
+    const [location, setLocation] = useState(null)
 
-    function openMapLocation(onSelectLocation) {
+    function openMapLocation(location, onSelectLocation) {
+        setLocation(location)
         setOnSelect(() => onSelectLocation)
         setIsShow(true)
     }
@@ -20,6 +22,7 @@ export function MapLocationModalProvider({ children }) {
         <MapLocationModalContext.Provider value={{ openMapLocation, close }}>
             {children}
             <MapLocation
+                location={location}
                 isShow={isShow}
                 close={close}
                 onSelect={onSelect}

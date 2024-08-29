@@ -8,7 +8,7 @@ export default function HomeTopHeader() {
     
     return (
         <div className={`mx-8 sm:mx-12 ${foodOrder ? 'mt-6' : 'mt-28'} text-3xl`}>
-            <div className="text-primary font-bold mb-3">Hi, <span className="font-medium uppercase">{user.user.first_name}</span></div>
+            <div className="text-primary font-bold mb-3">Hi, <span className="font-medium uppercase">{user.user.name}</span></div>
             <span className='font-bold text-primary mr-2'>Special</span>
             <span className='text-primary text-opacity-90'>Food For You</span>
         </div>

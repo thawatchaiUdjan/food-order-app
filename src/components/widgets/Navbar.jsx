@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Bars3Icon, ShoppingBagIcon, CakeIcon, XMarkIcon } from "@heroicons/react/24/solid"
+import { Bars3Icon, ShoppingBagIcon, CakeIcon, XMarkIcon, WalletIcon } from "@heroicons/react/24/solid"
 import FoodDetailModalContext from "../contexts/FoodDetailModalContext"
 import FoodCartContext from "../contexts/FoodCartContext"
 import AvatarProfile from "./AvatarProfile"
@@ -12,7 +12,7 @@ export default function Navbar() {
   const { open } = useContext(FoodDetailModalContext)
   const { foodCarts } = useContext(FoodCartContext)
   const { foodOrder } = useContext(OrderContext)
-  const { isAdmin } = useContext(AuthContext)
+  const { user, isAdmin } = useContext(AuthContext)
   const [menuOpen, setMenuOpen] = useState(false)
   const navigate = useNavigate()
 
@@ -34,12 +34,14 @@ export default function Navbar() {
       <div className={`navbar fixed top-0 z-10 ${menuOpen ? 'border-b' : 'shadow-md'} bg-white`}>
         <div className="flex-none">
           <label className="btn btn-square btn-ghost md:hidden swap swap-rotate">
-            <input type="checkbox"/>
+            <input type="checkbox" />
             <Bars3Icon className="size-6 text-primary swap-off" onClick={onClickToggleMenuButton} />
             <XMarkIcon className="size-6 text-primary swap-on" onClick={onClickToggleMenuButton} />
           </label>
         </div>
-        <div className="flex-1 mx-3">
+
+        {/* left menu */}
+        <div className="flex-1 mx-3 sm:pl-7">
           <HomeMenuButton />
           {/* hide menu collapse */}
           <div className="hidden md:flex ml-2">
@@ -47,10 +49,12 @@ export default function Navbar() {
             {isAdmin && <MenuLink text={'Orders'} link={'/orders'} />}
           </div>
         </div>
-        <div className="flex-none">
+
+        {/* right menu */}
+        <div className="flex-none pr-4 sm:pr-8">
           <ul className="menu menu-horizontal px-1 gap-5">
             <div className="hidden md:flex">
-              {foodOrder ? <FoodOrderButton onclick={onClickOrderButton} /> : <FoodCartButton foodCarts={foodCarts} />}
+              <WalletButton balance={user.user.balance} />
               {/* <LinkMenuButton text={"About"} link={'/'} /> */}
               {/* <LinkMenuButton text={"Contact"} link={'/'} /> */}
             </div>
@@ -78,10 +82,7 @@ export default function Navbar() {
 
 function FoodOrderFloatingIcon({ onClick }) {
   return (
-    <button
-      className="md:hidden fixed bottom-5 right-5 shadow-lg transition-colors btn btn-success btn-circle text-white z-20"
-      onClick={onClick}
-    >
+    <button className="fixed bottom-5 right-5 shadow-lg transition-colors btn btn-success btn-circle text-white z-20" onClick={onClick}>
       <CakeIcon className="size-6" />
     </button>
   )
@@ -90,9 +91,7 @@ function FoodOrderFloatingIcon({ onClick }) {
 function FoodCartFloatingIcon({ foodCarts }) {
   return (
     <Link to={'/food_cart'}>
-      <button
-        className="md:hidden fixed bottom-5 right-5 shadow-lg transition-colors btn btn-primary btn-circle z-20"
-      >
+      <button className="fixed bottom-5 right-5 shadow-lg transition-colors btn btn-primary btn-circle z-20">
         <ShoppingBagIcon className="size-6" />
         <div className="absolute top-[-5px] right-[-5px] shadow-xl">
           {foodCarts.length > 0 && (<div className="rounded-full size-6 bg-primary flex items-center justify-center">{foodCarts.length}</div>)}
@@ -102,30 +101,19 @@ function FoodCartFloatingIcon({ foodCarts }) {
   )
 }
 
-function FoodOrderButton({ onclick }) {
+function WalletButton({ balance }) {
   return (
-    <button className="btn btn-success text-base text-white"
-      onClick={onclick}>
-      <CakeIcon className="size-5" />
-      <span className="uppercase">Order</span>
-    </button>
-  )
-}
-
-function FoodCartButton({ foodCarts }) {
-  return (
-    <Link to={'/food_cart'}>
-      <button className="btn btn-primary text-base">
-        <ShoppingBagIcon className="size-5" />
-        <span>Your Food</span>
-        {foodCarts.length > 0 && (<span className="">: {foodCarts.length}</span>)}
+    <Link to={'/profile'}>
+      <button className="btn btn-success text-white text-base items-center">
+        <WalletIcon className="size-5" />
+        <span className="text-lg">${balance.toFixed(2)}</span>
       </button>
     </Link>
   )
 }
 
 function HomeMenuButton() {
-  return (<Link to={'/'}><button className="text-2xl text-primary uppercase text-nowrap">Food Order</button></Link>)
+  return (<Link to={'/'}><button className="text-2xl md:text-3xl text-primary uppercase text-nowrap">Food Order</button></Link>)
 }
 
 function LinkMenuButton({ text, link }) {

@@ -2,8 +2,6 @@ import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import FoodCartContext from '../contexts/FoodCartContext'
-import AuthContext from '../contexts/AuthContext'
 import L from 'leaflet'
 import mapMarkerIcon from '../../assets/map-pin.png'
 
@@ -17,18 +15,13 @@ const markerIcon = new L.Icon({
     shadowAnchor: [16, 32],
 })
 
-export default function MapLocation({ isShow, close, onSelect }) {
+export default function MapLocation({ location, isShow, close, onSelect }) {
     const defaultLocation = [13.7563, 100.5018] // center of thailand
-    const { location } = useContext(FoodCartContext)
-    const { user } = useContext(AuthContext)
     const [currentLocation, setCurrentLocation] = useState(location ? location.latlng : defaultLocation)
     const [isLoading, setIsLoading] = useState(true)
 
     async function setDefaultLocation() {
-        let currPosition = currentLocation
-        if (currPosition == defaultLocation) {
-            currPosition = user.user && user.user.location_latlng ? [13.84341360315534, 100.75424194335938] : await getCurrentPosition() // change 'false' to user.location_latlng
-        }
+        const currPosition = currentLocation == defaultLocation ? await getCurrentPosition() : currentLocation
         const location = currPosition || defaultLocation
         setCurrentLocation(location)
         setIsLoading(false)
@@ -39,8 +32,8 @@ export default function MapLocation({ isShow, close, onSelect }) {
     }, [])
 
     return (
-        !isLoading &&
-        <dialog id='food-option-modal' className={`modal z-10 max-w-full ${isShow ? 'modal-open' : 'modal-closed'}`}>
+        !isLoading && isShow &&
+        <dialog id='map-location-modal' className='modal modal-open z-10 max-w-full'>
             <div className="modal-box max-w-2xl">
                 <div className='text-center text-xl mb-3'>Choose your location</div>
                 <MapContainer center={currentLocation} zoom={currentLocation === defaultLocation ? 10 : 15} style={{ height: '400px', width: '100%' }}>

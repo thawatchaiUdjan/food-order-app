@@ -66,7 +66,7 @@ export default function FoodOrderCard() {
                         }
                     </ul>
                 </div>
-                <div className="collapse-content pl-7 pt-0 md:pt-3">
+                <div className="collapse-content px-7 pt-0 md:pt-3">
                     <div className='flex flex-col md:flex-row items-baseline text-lg font-bold gap-1 md:gap-3'>
                         <div className='flex-1'>Your Food</div>
                         <div className='font-normal text-sm text-black text-opacity-50'>Subtotal: ${foodOrder.order.subtotal_price}</div>

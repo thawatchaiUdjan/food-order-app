@@ -83,7 +83,7 @@ export default function Navbar() {
 
 function FoodOrderFloatingIcon({ onClick }) {
   return (
-    <button className="fixed bottom-5 right-5 shadow-lg transition-colors btn btn-success btn-circle text-white z-20" onClick={onClick}>
+    <button className="fixed bottom-5 right-5 shadow-lg transition-colors btn btn-success btn-circle text-white z-[9]" onClick={onClick}>
       <CakeIcon className="size-6" />
     </button>
   )
@@ -92,7 +92,7 @@ function FoodOrderFloatingIcon({ onClick }) {
 function FoodCartFloatingIcon({ foodCarts }) {
   return (
     <Link to={'/food_cart'}>
-      <button className="fixed bottom-5 right-5 shadow-lg transition-colors btn btn-primary btn-circle z-20">
+      <button className="fixed bottom-5 right-5 shadow-lg transition-colors btn btn-primary btn-circle z-[9]">
         <ShoppingBagIcon className="size-6" />
         <div className="absolute top-[-5px] right-[-5px] shadow-xl">
           {foodCarts.length > 0 && (<div className="rounded-full size-6 bg-primary flex items-center justify-center">{foodCarts.length}</div>)}

@@ -42,10 +42,6 @@ export default function FoodOrderCard() {
         })
     }
 
-    useEffect(() => {
-        getOrder()
-    }, [])
-
     return (
         foodOrder &&
         <div className='md:w-3/4 mt-28 mx-auto px-7 md:px-0'>

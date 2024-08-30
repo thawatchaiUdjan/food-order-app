@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { FoodCategoryProvider } from '../contexts/FoodCategoryContext'
 import { FoodProvider } from '../contexts/FoodContext'
 import { FoodDetailModalProvider } from '../contexts/FoodDetailModalContext'

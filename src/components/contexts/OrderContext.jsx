@@ -1,5 +1,5 @@
 import { logFormData, waitForSecond } from '../../utils'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { sendDeleteRequest, sendGetRequest, sendPostRequest, sendPutRequest } from '../../api-service'
 import { ORDER_ALL, ORDER_GET, ORDER_STATUS } from '../../api-path'
 import LoadingContext from './LoadingContext'
@@ -94,6 +94,10 @@ export function OrderProvider({ children }) {
     function updateAllFoodOrder(order) {
         SetAllFoodOrder(orders => orders.map(v => v.order_id === order.order_id ? { ...v, ...order } : v))
     }
+
+    useEffect(() => {
+        getOrder()
+    }, [])
 
     return (
         <OrderContext.Provider value={{ foodOrder, allFoodOrder, orderStatus, getAllOrder, getOrder, createOrder, cancelOrder, updateStatusOrder }}>

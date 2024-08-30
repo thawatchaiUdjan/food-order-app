@@ -1,13 +1,13 @@
-import { WalletIcon, PencilSquareIcon, MapPinIcon, ChevronDownIcon, PlusIcon, ArrowUpIcon, BanknotesIcon } from '@heroicons/react/24/solid';
+import { WalletIcon, PencilSquareIcon, MapPinIcon, ChevronDownIcon, PlusIcon, ArrowUpIcon, BanknotesIcon } from '@heroicons/react/24/solid'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import MapLocationModalContext, { MapLocationModalProvider } from '../contexts/MapLocationContext';
-import AuthContext from '../contexts/AuthContext';
-import TopUpContext from '../contexts/TopUpContext';
-import AlertMessageContext from '../contexts/AlertMessageContext';
+import MapLocationModalContext, { MapLocationModalProvider } from '../contexts/MapLocationContext'
+import AuthContext from '../contexts/AuthContext'
+import TopUpContext from '../contexts/TopUpContext'
+import AlertMessageContext from '../contexts/AlertMessageContext'
 import ButtonIconOutline from './ButtonIconOutline'
-import ConfirmModalContext from '../contexts/ConfirmModalContext';
-import { useNavigate } from 'react-router-dom';
-import { getFormatBalance } from '../../utils';
+import ConfirmModalContext from '../contexts/ConfirmModalContext'
+import { useNavigate } from 'react-router-dom'
+import { getFormatBalance } from '../../utils'
 
 export default function ProfilePage() {
     const { user, updateUser, deleteUser } = useContext(AuthContext)
@@ -64,7 +64,7 @@ export default function ProfilePage() {
                 <InputFieldAndEditButton onSave={onSaveName} defaultValue={user.user.name} />
 
                 {/* wallet */}
-                <div className='flex flex-col w-full gap-2 text-lg mt-5 text-white rounded-xl bg-success px-6 py-3'>
+                <div className='flex flex-col w-full gap-2 text-lg mt-5 text-white rounded-xl bg-success px-6 py-3 shadow-xl'>
                     <div className='flex items-center gap-2 text-sm text-secondary font-semibold'>
                         <WalletIcon className='size-5' />
                         <div>Balance</div>
@@ -159,7 +159,7 @@ function InputFieldAndEditButton({ defaultValue, onSave }) {
                 </div>
             )}
         </div>
-    );
+    )
 }
 
 function DeliveryAddress() {
@@ -173,7 +173,7 @@ function DeliveryAddress() {
 
     useEffect(() => {
         setLocation(user.user.location)
-    }, [user]);
+    }, [user])
 
     return (
         <div

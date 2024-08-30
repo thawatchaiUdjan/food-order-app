@@ -56,8 +56,12 @@ export function getTransformField(data, targetField, field) {
   return data[targetField].length > 0 ? data[targetField].map(option => option[field]) : data[targetField]
 }
 
-export function getFormatBalance(value) {
+export function getFormatBalance(value, isFloat = true) {
   const numericNumber = value.toString().replace(/[^0-9.]/g, '')
-  const floatNumber = parseFloat(numericNumber).toFixed(2) 
-  return numericNumber ? new Intl.NumberFormat().format(floatNumber) : ''
+  return numericNumber ? new Intl.NumberFormat('en-US',
+    isFloat ? {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    } : {}
+  ).format(numericNumber) : ''
 }

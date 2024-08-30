@@ -36,12 +36,12 @@ export default function TopUpModal({ close }) {
 
     function onClickTopUpSelectButton(value) {
         setTopUpSelect(value)
-        setValue('balance', value ? `$${getFormatBalance(value)}` : '')
+        setValue('balance', value ? `$${getFormatBalance(value, false)}` : '')
         trigger('balance')
     }
 
     function onChangeTopUpInput(e) {
-        const value = getFormatBalance(e.target.value)
+        const value = getFormatBalance(e.target.value, false)
         setTopUpSelect(0)
         setValue('balance', value ? `$${value}` : '')
     }
@@ -81,7 +81,7 @@ export default function TopUpModal({ close }) {
                                     <TopUpSelectButton
                                         key={index}
                                         value={topUp}
-                                        topUpValue={getFormatBalance(topUp)}
+                                        topUpValue={getFormatBalance(topUp, false)}
                                         topUpSelect={topUpSelect}
                                         onClick={onClickTopUpSelectButton}
                                     />

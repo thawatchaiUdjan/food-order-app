@@ -7,6 +7,7 @@ import AlertMessageContext from '../contexts/AlertMessageContext';
 import ButtonIconOutline from './ButtonIconOutline'
 import ConfirmModalContext from '../contexts/ConfirmModalContext';
 import { useNavigate } from 'react-router-dom';
+import { getFormatBalance } from '../../utils';
 
 export default function ProfilePage() {
     const { user, updateUser, deleteUser } = useContext(AuthContext)
@@ -68,7 +69,7 @@ export default function ProfilePage() {
                         <WalletIcon className='size-5' />
                         <div>Balance</div>
                     </div>
-                    <div className='text-3xl mb-4'>${user.user.balance.toFixed(2)}</div>
+                    <div className='text-3xl mb-4'>${getFormatBalance(user.user.balance)}</div>
                     <div className='flex flex-wrap gap-4 mb-2'>
                         <IconButton text={'Top Up'} icon={<PlusIcon className='size-5' />} onClick={showTopUp} />
                         <IconButton text={'Pay'} icon={<ArrowUpIcon className='size-4' />} />

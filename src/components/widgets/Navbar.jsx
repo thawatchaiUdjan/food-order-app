@@ -7,6 +7,7 @@ import AvatarProfile from "./AvatarProfile"
 import OrderContext from "../contexts/OrderContext"
 import { animateScroll as scroll } from 'react-scroll'
 import AuthContext from "../contexts/AuthContext"
+import { getFormatBalance } from "../../utils"
 
 export default function Navbar() {
   const { open } = useContext(FoodDetailModalContext)
@@ -106,7 +107,7 @@ function WalletButton({ balance }) {
     <Link to={'/profile'}>
       <button className="btn btn-success text-white text-base items-center">
         <WalletIcon className="size-5" />
-        <span className="text-lg">${balance.toFixed(2)}</span>
+        <span className="text-lg">${getFormatBalance(balance)}</span>
       </button>
     </Link>
   )

@@ -2,7 +2,7 @@ import { ArrowUpCircleIcon } from '@heroicons/react/24/solid'
 import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ButtonIcon from '../widgets/ButtonIcon'
-import { getNumberFormatWithComma } from '../../utils'
+import { getFormatBalance } from '../../utils'
 import AuthContext from '../contexts/AuthContext'
 import Swal from 'sweetalert2'
 
@@ -36,12 +36,12 @@ export default function TopUpModal({ close }) {
 
     function onClickTopUpSelectButton(value) {
         setTopUpSelect(value)
-        setValue('balance', value ? `$${getNumberFormatWithComma(value)}` : '')
+        setValue('balance', value ? `$${getFormatBalance(value)}` : '')
         trigger('balance')
     }
 
     function onChangeTopUpInput(e) {
-        const value = getNumberFormatWithComma(e.target.value)
+        const value = getFormatBalance(e.target.value)
         setTopUpSelect(0)
         setValue('balance', value ? `$${value}` : '')
     }
@@ -81,7 +81,7 @@ export default function TopUpModal({ close }) {
                                     <TopUpSelectButton
                                         key={index}
                                         value={topUp}
-                                        topUpValue={getNumberFormatWithComma(topUp)}
+                                        topUpValue={getFormatBalance(topUp)}
                                         topUpSelect={topUpSelect}
                                         onClick={onClickTopUpSelectButton}
                                     />
@@ -94,7 +94,7 @@ export default function TopUpModal({ close }) {
                         <hr className='mt-6 mb-5' />
                         <div className='flex justify-between items-baseline text-lg'>
                             <div>Subtotal</div>
-                            <div className='text-primary text-xl'>${topUpValue ? getNumberFormatWithComma(topUpValue) : 0}</div>
+                            <div className='text-primary text-xl'>${topUpValue ? getFormatBalance(topUpValue) : 0}</div>
                         </div>
                     </div>
 

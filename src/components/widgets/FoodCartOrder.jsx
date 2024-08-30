@@ -10,6 +10,7 @@ import DeliveryOptionCard from './DeliveryOptionCard'
 import { MapPinIcon } from '@heroicons/react/24/solid'
 import MapLocationModalContext, { MapLocationModalProvider } from '../contexts/MapLocationContext'
 import AuthContext from '../contexts/AuthContext'
+import { getFormatBalance } from '../../utils'
 
 export default function FoodCartOrder() {
     const { foodCarts, delivery, location, clearFoodCart } = useContext(FoodCartContext)
@@ -95,7 +96,7 @@ export default function FoodCartOrder() {
                     disabled={!(foodCarts && delivery && location && user.user.balance > totalCost)}
                     onClick={onClickOrderButton}
                 />
-                <Link to={'/profile'}><div className='text-center text-xs text-primary underline italic mt-3'>your balance: ${user.user.balance.toFixed(2)}</div></Link>
+                <Link to={'/profile'}><div className='text-center text-xs text-primary underline italic mt-3'>your balance: ${getFormatBalance(user.user.balance)}</div></Link>
             </div>
         </div>
     )

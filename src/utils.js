@@ -65,3 +65,13 @@ export function getFormatBalance(value, isFloat = true) {
     } : {}
   ).format(numericNumber) : ''
 }
+
+export function sortArray(array, key, order) {
+  return array.sort((a, b) => {
+    if (order == 0) {
+      return a[key] > b[key] ? 1 : -1
+    } else {
+      return a[key] < b[key] ? 1 : -1
+    }
+  })
+}

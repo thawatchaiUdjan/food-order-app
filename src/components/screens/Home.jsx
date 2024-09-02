@@ -10,6 +10,8 @@ import FoodList from '../widgets/FoodList'
 import FoodOrderCard from '../widgets/FoodOrderCard'
 import HomeTopHeader from '../widgets/HomeTopHeader'
 import { FoodOptionProvider } from '../contexts/FoodOptionContext'
+import { FoodSortingProvider } from '../contexts/FoodSortingContext'
+import FoodSortingMenu from '../widgets/FoodSortingMenu'
 
 export default function Home() {
   return (
@@ -19,12 +21,15 @@ export default function Home() {
           <FoodOptionProvider>
             <FoodDetailModalProvider>
               <OrderProvider>
-                <Navbar />
-                <FoodOrderCard />
-                <HomeTopHeader />
-                <InputSearchFood />
-                <FoodCategoryList />
-                <FoodList />
+                <FoodSortingProvider>
+                  <Navbar />
+                  <FoodOrderCard />
+                  <HomeTopHeader />
+                  <InputSearchFood />
+                  <FoodCategoryList />
+                  <FoodSortingMenu/>
+                  <FoodList />
+                </FoodSortingProvider>
               </OrderProvider>
             </FoodDetailModalProvider>
           </FoodOptionProvider>

@@ -7,19 +7,39 @@ import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
 import Pagination from './Pagination'
 import { scroller, Element } from 'react-scroll'
 import LoadingContext from '../contexts/LoadingContext'
-import { waitForSecond } from '../../utils'
+import { sortArray, waitForSecond } from '../../utils'
+import FoodSortingContext from '../contexts/FoodSortingContext'
 
 export default function FoodList() {
     const { selectCategory } = useContext(FoodCategoryContext)
     const { foods, fetchFood, searchFoods } = useContext(FoodContext)
+    const { showLoading, hideLoading } = useContext(LoadingContext)
+    const { sort, order } = useContext(FoodSortingContext)
     const [foodListCategory, setFoodListCategory] = useState(0)
     const [currentPage, setCurrentPage] = useState(1)
-    const { showLoading, hideLoading } = useContext(LoadingContext)
-
+    const [filteredFoods, setFilteredFoods] = useState([])
+    const [paginatedFoods, setPaginatedFoods] = useState([])
+    const [totalPages, seTotalPages] = useState([])
     const foodPerPage = 6
-    const filteredFoods = foods.filter(food => (food.category_id === selectCategory || selectCategory === 0) && searchFoods.some(v => v == food))
-    const paginatedFoods = filteredFoods.slice((currentPage - 1) * foodPerPage, currentPage * foodPerPage)
-    const totalPages = Math.ceil(filteredFoods.length / foodPerPage)
+
+    function filterFood() {
+        const filteredFood = foods.filter(food => (food.category_id === selectCategory || selectCategory === 0) && searchFoods.some(v => v == food))
+        setFilteredFoods(filteredFood)
+        sortFood(filteredFood)
+    }
+
+    function paginateFood() {
+        const paginatedFood = filteredFoods.slice((currentPage - 1) * foodPerPage, currentPage * foodPerPage)
+        const totalPage = Math.ceil(filteredFoods.length / foodPerPage)
+        setPaginatedFoods(paginatedFood)
+        seTotalPages(totalPage)
+    }
+
+    function sortFood(filterFoods) {
+        const sortedFoods = sortArray([...filterFoods], sort.key, order)
+        setFilteredFoods(sortedFoods)
+        setCurrentPage(1)
+    }
 
     function onClickPageChangeButton(page) {
         if (page >= 1 && page <= totalPages) {
@@ -45,7 +65,16 @@ export default function FoodList() {
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [selectCategory, searchFoods])
+        filterFood()
+    }, [foods, selectCategory, searchFoods])
+
+    useEffect(() => {
+        sortFood(filteredFoods)
+    }, [sort, order])
+
+    useEffect(() => {
+        paginateFood()
+    }, [filteredFoods, currentPage])
 
     return (
         <div className='mx-8 sm:mx-10 my-5'>

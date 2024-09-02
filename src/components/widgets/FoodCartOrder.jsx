@@ -170,17 +170,17 @@ function DeliveryOptionList() {
 function FoodCartSummarize({ subtotalCost, deliveryCost, totalCost }) {
     return (
         <div className='mt-3'>
-            <div className='flex justify-between text-lg'>
-                <div className='text-gray-500 text-opacity-70'>Subtotal</div>
-                <div className='text-primary text-opacity-70'>${subtotalCost}</div>
+            <div className='flex justify-between text-gray-500'>
+                <div>Subtotal</div>
+                <div>${subtotalCost}</div>
             </div>
-            <div className='flex justify-between text-lg'>
-                <div className='text-gray-500 text-opacity-70'>Delivery</div>
-                <div className='text-primary text-opacity-70'>${deliveryCost}</div>
+            <div className='flex justify-between text-gray-500'>
+                <div>Delivery</div>
+                <div>${deliveryCost}</div>
             </div>
-            <div className='flex justify-between text-lg my-5'>
-                <div className='font-semibold'>Total</div>
-                <div className='font-semibold text-primary'>${totalCost}</div>
+            <div className='flex justify-between text-primary font-semibold text-lg my-5'>
+                <div>Total</div>
+                <div>${totalCost}</div>
             </div>
         </div>
     )

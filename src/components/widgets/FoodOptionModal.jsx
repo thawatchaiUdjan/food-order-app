@@ -151,7 +151,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                                 {...register(name, rules)}
                             />
                             <span className={`${errors[name] ? 'text-error' : ''} flex-1`}>{choice.choice_name}</span>
-                            <span className={`${errors[name] ? 'text-error' : ''} text-md text-gray-500`}>{choice.choice_price > 0 ? `+$${choice.choice_price}` : ''}</span>
+                            <span className={`${errors[name] ? 'text-error' : ''} text-md text-gray-500`}>{choice.choice_price > 0 ? `$${choice.choice_price}` : ''}</span>
                         </label>
                     ))
                 }
@@ -177,7 +177,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
                                 {...register(name, rules)}
                             />
                             <span className={`${errors[name] ? 'text-error' : ''} flex-1`}>{choice.choice_name}</span>
-                            <span className={`${errors[name] ? 'text-error' : ''} text-md text-gray-500`}>{choice.choice_price > 0 ? `+ $${choice.choice_price}` : ''}</span>
+                            <span className={`${errors[name] ? 'text-error' : ''} text-md text-gray-500`}>{choice.choice_price > 0 ? `$${choice.choice_price}` : ''}</span>
                         </label>
                     ))
                 }

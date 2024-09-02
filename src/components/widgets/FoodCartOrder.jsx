@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ArrowRightIcon, ChevronDownIcon } from '@heroicons/react/24/solid'
+import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import FoodCartContext from '../contexts/FoodCartContext'
 import FoodCartList from '../widgets/FoodCartList'
 import ConfirmModalContext from '../contexts/ConfirmModalContext'
@@ -11,6 +11,7 @@ import { MapPinIcon } from '@heroicons/react/24/solid'
 import MapLocationModalContext, { MapLocationModalProvider } from '../contexts/MapLocationContext'
 import AuthContext from '../contexts/AuthContext'
 import { getFormatBalance } from '../../utils'
+import { MapIcon, StarIcon } from '@heroicons/react/24/outline'
 
 export default function FoodCartOrder() {
     const { foodCarts, delivery, location, clearFoodCart } = useContext(FoodCartContext)
@@ -105,18 +106,44 @@ export default function FoodCartOrder() {
 function DeliveryAddress() {
     const { openMapLocation } = useContext(MapLocationModalContext)
     const { location, setLocation } = useContext(FoodCartContext)
+    const { user } = useContext(AuthContext)
+    const [checked, setIsChecked] = useState(false)
 
     function onSelectLocation(location) {
         setLocation(location)
+        setIsChecked(false)
     }
 
     return (
-        <div
-            className='w-full h-auto p-3 btn btn-outline btn-primary font-normal flex flex-row items-center justify-start'
-            onClick={() => openMapLocation(location, onSelectLocation)}>
-            <MapPinIcon className='size-6 text-error' />
-            <div className='text-sm flex-1 xl:flex-none'>{location ? location.address : 'Choose your location'}</div>
-            <div className='xl:flex-1'><ChevronDownIcon className='size-6 ml-auto' /></div>
+        <div className="collapse collapse-arrow border border-primary rounded-lg">
+            <input type="checkbox" className='min-h-0' checked={checked} onChange={() => setIsChecked(!checked)} />
+            <div className='collapse-title'>
+                <div className='flex items-center gap-2'>
+                    <MapPinIcon className='size-6 text-error' />
+                    <div className='text-sm flex-1'>{location ? location.address : 'Choose your location'}</div>
+                </div>
+            </div>
+            <div className="collapse-content p-0">
+                <ul className='menu w-full rounded-lg py-0'>
+                    {
+                        user.user.location &&
+                        <>
+                            <hr className='mx-3 my-1' />
+                            <li onClick={() => onSelectLocation(user.user.location)}>
+                                <a className='flex gap-3 text-wrap'>
+                                    <StarIcon className='size-5 text-primary' />
+                                    <div className='flex-1'>{user.user.location.address}</div>
+                                </a>
+                            </li>
+                        </>
+                    }
+                    <hr className='mx-3 my-1' />
+                    <li><a className='flex justify-center' onClick={() => openMapLocation(location, onSelectLocation)}>
+                        <MapIcon className='size-5 text-primary' />
+                        <div>Choose from map</div>
+                    </a></li>
+                </ul>
+            </div>
         </div>
     )
 }

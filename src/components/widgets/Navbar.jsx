@@ -114,7 +114,7 @@ function WalletButton({ balance }) {
 }
 
 function HomeMenuButton() {
-  return (<Link to={'/'}><button className="text-2xl md:text-3xl text-primary uppercase text-nowrap">Food Order</button></Link>)
+  return (<Link to={'/'}><button className="text-2xl text-primary uppercase text-nowrap">Food Order</button></Link>)
 }
 
 function LinkMenuButton({ text, link }) {

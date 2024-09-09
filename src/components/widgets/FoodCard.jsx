@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'
 import FoodDetailModalContext from '../contexts/FoodDetailModalContext'
-import FoodCartContext from '../contexts/FoodCartContext'
 import OrderContext from '../contexts/OrderContext'
 import AuthContext from '../contexts/AuthContext'
 import FoodOptionModalContext from '../contexts/FoodOptionModalContext'
@@ -35,7 +34,7 @@ export default function FoodCard({ food }) {
         <p className="text-gray-400 text-base italic mb-6 h-24 overflow-y-auto whitespace-normal">{food.food_description}</p>
         <button
           className="btn btn-outline btn-primary border-2 uppercase px-8 rounded-full"
-          disabled={foodOrder != null}
+          disabled={foodOrder}
           onClick={onClickBuyButton}>
           Buy Now
         </button>

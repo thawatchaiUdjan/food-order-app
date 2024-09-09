@@ -8,6 +8,7 @@ import ButtonIconOutline from './ButtonIconOutline'
 import ConfirmModalContext from '../contexts/ConfirmModalContext'
 import { useNavigate } from 'react-router-dom'
 import { getFormatBalance } from '../../utils'
+import { CameraIcon } from '@heroicons/react/24/solid'
 
 export default function ProfilePage() {
     const { user, updateUser, deleteUser } = useContext(AuthContext)
@@ -15,6 +16,7 @@ export default function ProfilePage() {
     const { showAlert } = useContext(AlertMessageContext)
     const { open } = useContext(ConfirmModalContext)
     const [isLoading, setIsLoading] = useState()
+    const profileImageRef = useRef(null)
     const navigate = useNavigate()
 
     async function onSaveName(name) {
@@ -45,6 +47,20 @@ export default function ProfilePage() {
         })
     }
 
+    async function onChangeProfileImageInput(e) {
+        const imageFile = e.target.files[0]
+        if (imageFile) {
+            let formData = new FormData()
+            formData.append('profile_image_url', imageFile)
+            try {
+                await updateUser(formData)
+                showAlert('success', 'Your profile image successfully updated')
+            } catch (err) {
+                showAlert('error', err.response.data.message)
+            }
+        }
+    }
+
     return (
         <div className="flex justify-center mx-auto px-8 md:px-0 md:w-2/3 mt-10 mb-20 pt-20">
             <div className="flex flex-col w-full items-center">
@@ -53,9 +69,18 @@ export default function ProfilePage() {
                 {/* avatar */}
                 <div className="avatar mb-6">
                     <div className="size-44 rounded-full ring ring-primary">
-                        <img
-                            src="https://avatar.iran.liara.run/public/job/police/female"
-                            alt="Profile"
+                        <img src={user.user.profile_image_url || 'https://avatar.iran.liara.run/public/job/police/female'} alt="Profile" />
+
+                    </div>
+                    <div role='button' className='absolute right-0 bottom-0 p-2 rounded-full bg-primary hover:bg-accent'
+                        onClick={() => profileImageRef.current.click()}>
+                        <CameraIcon className='size-5 text-white' />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            ref={profileImageRef}
+                            onChange={onChangeProfileImageInput}
+                            className='hidden'
                         />
                     </div>
                 </div>
@@ -92,7 +117,7 @@ export default function ProfilePage() {
                 {/* button group */}
                 <div className='w-full mt-5'>
                     <hr className='mb-4 mt-2' />
-                    <ButtonIconOutline buttonType={'error'} text={'Delete account'} onClick={onClickDeleteAccountButton} />
+                    <ButtonIconOutline buttonType={'error'} text={'Delete account'} isLoading={isLoading} onClick={onClickDeleteAccountButton} />
                 </div>
 
             </div>

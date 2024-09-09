@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import AuthContext from '../contexts/AuthContext'
 
 export default function AvatarProfile() {
-    const { logout } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
     const navigate = useNavigate()
-
+    
     function onClickLogout() {
         logout()
         navigate('/login')
@@ -16,7 +16,7 @@ export default function AvatarProfile() {
         <details className="dropdown dropdown-end">
             <summary className="btn btn-circle avatar">
                 <div className="ring-primary ring-offset-base-100 size-10 rounded-full ring ring-offset-2">
-                    <img src="https://avatar.iran.liara.run/public/job/police/female" alt="Profile Avatar" />
+                    <img src={user.user.profile_image_url || 'https://avatar.iran.liara.run/public/job/police/female'} alt="Profile Avatar" />
                 </div>
             </summary>
 

@@ -13,7 +13,7 @@ export function FoodCartProvider({ children }) {
     const [deliveryOptions, setDeliveryOptions] = useState([])
     const [foodCarts, setFoodCart] = useState([])
     const [delivery, setDelivery] = useState(defaultDelivery)
-    const [location, setLocation] = useState(null)
+    const [location, setLocation] = useState('')
 
     async function getDeliveryOptions() {
         try {

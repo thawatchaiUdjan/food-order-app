@@ -104,7 +104,7 @@ export default function FoodCartOrder() {
 }
 
 function DeliveryAddress() {
-    const { openMapLocation } = useContext(MapLocationModalContext)
+    const { openMapLocation, setDefaultLocation } = useContext(MapLocationModalContext)
     const { location, setLocation } = useContext(FoodCartContext)
     const { user } = useContext(AuthContext)
     const [checked, setIsChecked] = useState(false)
@@ -112,7 +112,12 @@ function DeliveryAddress() {
     function onSelectLocation(location) {
         setLocation(location)
         setIsChecked(false)
+        setDefaultLocation(location)
     }
+
+    useEffect(() => {
+        setDefaultLocation(location)
+    }, []);
 
     return (
         <div className="collapse collapse-arrow border border-primary rounded-lg">

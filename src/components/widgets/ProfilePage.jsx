@@ -188,16 +188,23 @@ function InputFieldAndEditButton({ defaultValue, onSave }) {
 }
 
 function DeliveryAddress() {
-    const { openMapLocation } = useContext(MapLocationModalContext)
+    const { openMapLocation, setDefaultLocation } = useContext(MapLocationModalContext)
     const { user, updateUser } = useContext(AuthContext)
+    const { showAlert } = useContext(AlertMessageContext)
     const [location, setLocation] = useState(user.user.location)
 
-    function onSelectLocation(location) {
-        updateUser({ location: location })
+    async function onSelectLocation(location) {
+        try {
+            await updateUser({ location: location })
+            showAlert('success', 'Your address successfully updated')
+        } catch (err) {
+            showAlert('error', err.response.data.message)
+        }
     }
 
     useEffect(() => {
         setLocation(user.user.location)
+        setDefaultLocation(user.user.location)
     }, [user])
 
     return (

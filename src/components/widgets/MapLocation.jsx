@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
@@ -15,24 +15,29 @@ const markerIcon = new L.Icon({
     shadowAnchor: [16, 32],
 })
 
+
 export default function MapLocation({ location, isShow, close, onSelect }) {
-    const defaultLocation = [13.7563, 100.5018] // center of thailand
-    const [currentLocation, setCurrentLocation] = useState(location ? location.latlng : defaultLocation)
-    const [isLoading, setIsLoading] = useState(true)
+    const defaultLocation = { lat: 13.7563, lng: 100.5018 } // center of thailand
+    const [currentLocation, setCurrentLocation] = useState(null)
 
     async function setDefaultLocation() {
-        const currPosition = currentLocation == defaultLocation ? await getCurrentPosition() : currentLocation
-        const location = currPosition || defaultLocation
-        setCurrentLocation(location)
-        setIsLoading(false)
+        if (location != null) {
+            if (location != '') {
+                setCurrentLocation(location.latlng)
+            } else {
+                const userPosition = await getCurrentPosition()
+                const targetPosition = userPosition ? { lat: userPosition[0], lng: userPosition[1] } : defaultLocation
+                setCurrentLocation(targetPosition)
+            }
+        }
     }
 
     useEffect(() => {
         setDefaultLocation()
-    }, [])
+    }, [location])
 
     return (
-        !isLoading && isShow &&
+        isShow &&
         <dialog id='map-location-modal' className='modal modal-open z-10 max-w-full'>
             <div className="modal-box max-w-2xl">
                 <div className='text-center text-xl mb-3'>Choose your location</div>

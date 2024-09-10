@@ -29,12 +29,8 @@ export default function OrderCard({ order }) {
                     <hr className='my-2' />
                     <div className='text-black text-opacity-50'>
                         <div>
-                            <span className='text-black text-opacity-100'>first name:</span>
-                            {order.first_name}
-                        </div>
-                        <div>
-                            <span className='text-black text-opacity-100'>last name:</span>
-                            {order.last_name}
+                            <span className='text-black text-opacity-100'>name:</span>
+                            {order.name}
                         </div>
                         <div>
                             <span className='text-black text-opacity-100'>role:</span>
@@ -58,7 +54,7 @@ export default function OrderCard({ order }) {
                     {/* order update info */}
                     <hr className='my-4' />
                     <div className='text-xl mb-2'>Order Status</div>
-                    <select className="select select-bordered w-full max-w-xs" value={order.order_status} onChange={onChangeOrderStatus}>
+                    <select className="select select-bordered w-full max-w-xs mb-5" value={order.order_status} onChange={onChangeOrderStatus}>
                         {
                             orderStatus.map((status, index) => (
                                 <option key={index} value={status._id}>{status.status_name}</option>

@@ -12,6 +12,7 @@ import ButtonIconOutline from './ButtonIconOutline'
 import FoodCategoryContext from '../contexts/FoodCategoryContext'
 import FoodOptionContext from '../contexts/FoodOptionContext'
 import InputSelect from './InputSelect'
+import AlertMessageContext from '../contexts/AlertMessageContext'
 
 export default function FoodDetailModal({ food, isShow, isNew, close }) {
   const { register, handleSubmit, reset, formState: { errors } } = useForm()
@@ -19,6 +20,7 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
   const { deleteFood, updateFood, createFood } = useContext(FoodContext)
   const { category } = useContext(FoodCategoryContext)
   const { foodOptions } = useContext(FoodOptionContext)
+  const { showAlert } = useContext(AlertMessageContext)
   const [isLoading, setIsLoading] = useState(false)
   const [imageFile, setImageFile] = useState(null)
   const [currFood, setCurrFood] = useState(food)
@@ -59,10 +61,15 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
   }
 
   async function onClickUpdateButton(food) {
-    setIsLoading(true)
-    await updateFood(currFood.food_id, food)
-    setIsLoading(false)
-    resetImageFileInput()
+    try {
+      setIsLoading(true)
+      await updateFood(currFood.food_id, food)
+      resetImageFileInput()
+    } catch (err) {
+      showAlert('error', err.response.data.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   function onClickDeleteButton() {
@@ -70,8 +77,12 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
       title: 'Confirm Delete',
       detail: 'Are you sure you want to delete this food?',
       onConfirm: async () => {
-        await deleteFood(currFood.food_id)
-        close()
+        try {
+          await deleteFood(currFood.food_id)
+          close()
+        } catch (err) {
+          showAlert('error', err.response.data.message)
+        }
       }
     })
   }

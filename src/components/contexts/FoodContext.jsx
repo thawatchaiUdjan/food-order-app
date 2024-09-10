@@ -35,7 +35,7 @@ export function FoodProvider({ children }) {
       showAlert('success', res.data.message)
     } catch (err) {
       console.log(err.response.data.message)
-      showAlert('error', err.response.data.message)
+      throw err
     } finally {
       hideLoading()
     }
@@ -50,7 +50,7 @@ export function FoodProvider({ children }) {
       showAlert('success', res.data.message)
     } catch (err) {
       console.log(err.response.data.message)
-      showAlert('error', err.response.data.message)
+      throw err
     } finally {
       hideLoading()
     }

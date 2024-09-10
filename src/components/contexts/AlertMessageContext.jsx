@@ -6,10 +6,12 @@ const AlertMessageContext = createContext()
 export const AlertMessageProvider = ({ children }) => {
     const DELAY = 3000
     const [alert, setAlert] = useState(null)
+    const [timeOut, setTimeOut] = useState(null)
 
     function showAlert(type, message) {
         setAlert({ type, message })
-        setTimeout(() => setAlert(null), DELAY)
+        clearTimeout(timeOut)
+        setTimeOut(setTimeout(() => setAlert(null), DELAY))
     }
 
     return (

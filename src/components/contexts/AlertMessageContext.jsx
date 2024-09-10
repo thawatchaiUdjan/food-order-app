@@ -8,7 +8,9 @@ export const AlertMessageProvider = ({ children }) => {
     const [alert, setAlert] = useState(null)
     const [timeOut, setTimeOut] = useState(null)
 
-    function showAlert(type, message) {
+    async function showAlert(type, message) {
+        setAlert(null)
+        await new Promise(resolve => setTimeout(resolve, 1))
         setAlert({ type, message })
         clearTimeout(timeOut)
         setTimeOut(setTimeout(() => setAlert(null), DELAY))

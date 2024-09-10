@@ -1,5 +1,6 @@
 import React from 'react'
 import { CheckCircleIcon, XCircleIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline'
+import { Animated } from 'react-animated-css'
 
 export default function AlertMessage({ type, message }) {
 
@@ -22,10 +23,12 @@ export default function AlertMessage({ type, message }) {
 
     return (
         <div className='fixed top-3 inset-x-0 mx-5 md:mx-auto md:w-[450px] z-50'>
-            <div role="alert" className={`${alert.type} alert flex flex-row text-white shadow-lg `}>
-                {alert.icon}
-                <span className='truncate'>{message}</span>
-            </div>
-        </div>
+            <Animated animationIn={`${type == 'success' ? 'bounceInDown' : 'bounceIn'}`} animationOut="none" isVisible={alert != null} animationInDuration={800} >
+                <div className={`${alert.type} alert flex flex-row text-white shadow-lg `}>
+                    {alert.icon}
+                    <span className='truncate'>{message}</span>
+                </div>
+            </Animated>
+        </div >
     )
 }

@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form'
 import ButtonIcon from './ButtonIcon'
 import { ShoppingCartIcon } from '@heroicons/react/24/solid'
 import InputTextArea from './InputTextArea'
+import AlertMessageContext from '../contexts/AlertMessageContext'
 
 export default function FoodOptionModal({ food, isShow, close }) {
     const { register, handleSubmit, reset, watch, formState: { errors } } = useForm()
     const { addFoodCart } = useContext(FoodCartContext)
+    const { showAlert } = useContext(AlertMessageContext)
     const [totalPrice, setTotalPrice] = useState(food.food_price)
     const allOptions = watch()
 
@@ -19,6 +21,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
         food.food_price = totalPrice
         addFoodCart({ food, foodOptions })
         close()
+        showAlert('success', 'Food added! Check your cart for details')
     }
 
     function getStringOptions(data) {

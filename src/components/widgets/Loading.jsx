@@ -13,7 +13,7 @@ export default function Loading({ loading, isOverlay }) {
         )
     }
     else if (loading & !isOverlay) {
-        content = (<div className="fixed inset-0 flex z-50 cursor-not-allowed"></div>)
+        content = (<div className="fixed inset-0 flex z-50 cursor-wait"></div>)
     }
     return content
 }

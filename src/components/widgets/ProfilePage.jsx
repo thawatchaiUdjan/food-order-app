@@ -203,8 +203,8 @@ function DeliveryAddress() {
     }
 
     useEffect(() => {
-        setLocation(user.user.location)
-        setDefaultLocation(user.user.location)
+        setLocation(user.user.location || '')
+        setDefaultLocation(user.user.location || '')
     }, [user])
 
     return (

@@ -20,7 +20,7 @@ export default function FoodList() {
     const [filteredFoods, setFilteredFoods] = useState([])
     const [paginatedFoods, setPaginatedFoods] = useState([])
     const [totalPages, seTotalPages] = useState([])
-    const foodPerPage = 6
+    const foodPerPage = 8
 
     function filterFood() {
         const filteredFood = foods.filter(food => (food.category_id === selectCategory || selectCategory === 0) && searchFoods.some(v => v == food))
@@ -112,7 +112,7 @@ export default function FoodList() {
 function FoodsList({ foods, currentPage, totalPages, onClick }) {
     return (
         <>
-            <div className='grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+            <div className='grid gap-8 grid-cols-1 md:grid-cols-2 xl:grid-cols-4'>
                 <FoodOptionModalProvider>
                     {foods.map((food, index) => <FoodCard key={index} food={food} />)}
                 </FoodOptionModalProvider>

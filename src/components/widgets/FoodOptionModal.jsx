@@ -18,7 +18,7 @@ export default function FoodOptionModal({ food, isShow, close }) {
             option_string: getStringOptions(data),
             option_note: data['option-note']
         }
-        food.food_price = totalPrice
+        food.food_price = parseFloat(totalPrice)
         addFoodCart({ food, foodOptions })
         close()
         showAlert('success', 'Food added! Check your cart for details')

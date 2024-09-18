@@ -50,8 +50,8 @@ export default function FoodCartOrder() {
     }
 
     function calculateSubtotal() {
-        const subtotal = foodCarts.reduce((total, foodCart) => total + parseFloat(foodCart.total), 0).toFixed(2)
-        const total = parseFloat(parseFloat(subtotal) + delivery.delivery_cost).toFixed(2)
+        const subtotal = parseFloat(parseFloat(foodCarts.reduce((total, foodCart) => total + parseFloat(foodCart.total), 0)).toFixed(2))
+        const total = parseFloat(parseFloat(subtotal + delivery.delivery_cost).toFixed(2))
         setSubtotal(subtotal)
         setTotalCost(total)
     }

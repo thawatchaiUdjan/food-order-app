@@ -39,7 +39,7 @@ export function FoodCartProvider({ children }) {
 
     function addFoodCartAmount(index, amount) {
         const food = foodCarts[index].food
-        const total = parseFloat(food.food_price * amount).toFixed(2)
+        const total = parseFloat(parseFloat(food.food_price * amount).toFixed(2))
         setFoodCart(foodCarts => foodCarts.map((foodCart, i) =>
             i === index ? { ...foodCart, amount: amount, total: total } : foodCart)
         )

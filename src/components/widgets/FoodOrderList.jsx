@@ -11,7 +11,7 @@ export default function FoodOrderList() {
     }, [])
 
     return (
-        allFoodOrder.length > 0 ? <OrderList allFoodOrder={allFoodOrder} /> : <OrderNoPage />
+        allFoodOrder && allFoodOrder.length > 0 ? <OrderList allFoodOrder={allFoodOrder} /> : <OrderNoPage />
     )
 }
 

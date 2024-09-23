@@ -19,7 +19,7 @@ export default function useAuth(isCheckAdmin) {
       try {
         setIsLoading(true)
         await sendGetRequest(USER_VERIFY_TOKEN)
-        setIsAuthenticated(isCheckAdmin ? user.user && user.user.role == 'admin' || user.user.role == 'owner' : true)
+        setIsAuthenticated(isCheckAdmin ? user.user && (user.user.role == 'admin' || user.user.role == 'owner') : true)
       } catch (err) {
         logout()
         setIsAuthenticated(false)

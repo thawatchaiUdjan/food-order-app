@@ -146,7 +146,7 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
 
   return (
     <dialog id='food-detail-modal' className={`modal z-30 max-w-full ${isShow ? 'modal-open' : 'modal-closed'} `}>
-      <div className="modal-box max-w-2xl overflow-x-hidden overscroll-none max-h-[800px]">
+      <div className="modal-box max-w-2xl overflow-x-hidden overscroll-none h-4/5">
         <div className="text-primary font-medium text-3xl text-center uppercase mb-4">Food Detail</div>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-5'>
 

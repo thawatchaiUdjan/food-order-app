@@ -7,7 +7,7 @@ import LoadingContext from '../components/contexts/LoadingContext'
 import AlertMessageContext from '../components/contexts/AlertMessageContext'
 
 export default function useAuth(isCheckAdmin) {
-  const { user, isAdmin, logout } = useContext(AuthContext)
+  const { user, logout } = useContext(AuthContext)
   const { hideLoading } = useContext(LoadingContext)
   const { showAlert } = useContext(AlertMessageContext)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -19,7 +19,7 @@ export default function useAuth(isCheckAdmin) {
       try {
         setIsLoading(true)
         await sendGetRequest(USER_VERIFY_TOKEN)
-        setIsAuthenticated(isCheckAdmin ? user.user && isAdmin : true)
+        setIsAuthenticated(isCheckAdmin ? user.user && user.user.role == 'admin' || user.user.role == 'owner' : true)
       } catch (err) {
         logout()
         setIsAuthenticated(false)

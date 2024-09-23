@@ -146,9 +146,8 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
 
   return (
     <dialog id='food-detail-modal' className={`modal z-30 max-w-full ${isShow ? 'modal-open' : 'modal-closed'} `}>
-      <div className="modal-box max-w-2xl">
-        <button onClick={close} className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-        <div className="text-primary font-medium text-3xl text-center uppercase my-3">Food Detail</div>
+      <div className="modal-box max-w-2xl overflow-x-hidden overscroll-none scrollbar-hide">
+        <div className="text-primary font-medium text-3xl text-center uppercase mb-4">Food Detail</div>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-5'>
 
           {/* image input */}
@@ -266,6 +265,10 @@ export default function FoodDetailModal({ food, isShow, isNew, close }) {
 
         </form>
       </div>
+
+      <form method="dialog" className="modal-backdrop">
+        <button onClick={close}/>
+      </form>
     </dialog>
   )
 }

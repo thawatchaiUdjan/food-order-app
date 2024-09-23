@@ -9,7 +9,7 @@ const AuthContext = createContext()
 export const AuthProvider = ({ children }) => {
     const { showLoading, hideLoading } = useContext(LoadingContext)
     const [user, setUser] = useState({ user: getUser(), token: getToken() })
-    const [isAdmin, setIsAdmin] = useState(user.user && user.user.role == 'admin')
+    const [isAdmin, setIsAdmin] = useState(user.user && user.user.role == 'admin' || user.user.role == 'owner')
 
     async function login(data) {
         try {

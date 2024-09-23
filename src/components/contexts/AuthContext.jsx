@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('token', data.token)
         localStorage.setItem('user', JSON.stringify(data.user))
         setUser({ user: data.user, token: data.token })
-        setIsAdmin(data.user.role == 'admin')
+        setIsAdmin(data.user.role == 'admin' || data.user.role == 'owner')
     }
 
     function getToken() {

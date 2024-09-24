@@ -24,7 +24,7 @@ If you encounter any issues accessing the application, it could be due to one of
 - **Backend Service Down**: The REST API service on Google Cloud Run may no longer be active.
 - **Image Storage Issue**: Cloudinary might be experiencing issues, or image links could be broken.
 
-## [Click to open link](https://food-order-app-kappa-six.vercel.app/)
+## [Link to visit website](https://food-order-app-kappa-six.vercel.app/)
 
 ---
 

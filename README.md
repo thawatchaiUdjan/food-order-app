@@ -1,15 +1,12 @@
-# Web Application with React, Vite, and Node.js (Express)
+# Web Application with React, Vite
 
 ## Overview
 
-This repository hosts a web application with a React and Vite frontend, and a Node.js (Express) backend. The frontend is deployed on Vercel, the backend REST API is hosted on Google Cloud Run, and the MySQL database is managed on Microsoft Azure. Image storage is handled via Cloudinary.
+This repository hosts a web application with a React and Vite frontend. The frontend is deployed on Vercel, the backend REST API is hosted on Google Cloud Run, and the MySQL database is managed on Microsoft Azure. Image storage is handled via Cloudinary.
 
 ## Features
 
 - **Frontend**: React and Vite with Tailwind CSS and DaisyUI for styling.
-- **Backend**: Node.js and Express, containerized with Docker and managed with Docker Compose.
-- **Database**: MySQL on Microsoft Azure.
-- **Image Storage**: Cloudinary.
 
 ## User Registration and Access
 
